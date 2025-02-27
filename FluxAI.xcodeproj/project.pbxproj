@@ -1,0 +1,689 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC6027A32D704E9100DED9B7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027A22D704E9100DED9B7 /* SnapKit */; };
+		CC6027A82D704E9F00DED9B7 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027A72D704E9F00DED9B7 /* Swinject */; };
+		CC6027AD2D704EAB00DED9B7 /* SwinjectAutoregistration in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027AC2D704EAB00DED9B7 /* SwinjectAutoregistration */; };
+		CC6027B22D704EB800DED9B7 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027B12D704EB800DED9B7 /* SQLite */; };
+		CC6027B52D704EFF00DED9B7 /* FluxAIModele in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027B42D704EFF00DED9B7 /* FluxAIModele */; };
+		CC6027B72D704EFF00DED9B7 /* FluxAIViewModel in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027B62D704EFF00DED9B7 /* FluxAIViewModel */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC6027822D704E2800DED9B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6027632D704E2700DED9B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC60276A2D704E2700DED9B7;
+			remoteInfo = FluxAI;
+		};
+		CC60278C2D704E2800DED9B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6027632D704E2700DED9B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC60276A2D704E2700DED9B7;
+			remoteInfo = FluxAI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC60276B2D704E2700DED9B7 /* FluxAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluxAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC6027812D704E2800DED9B7 /* FluxAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FluxAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC60278B2D704E2800DED9B7 /* FluxAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FluxAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC60279F2D704E6A00DED9B7 /* FluxAIModele */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FluxAIModele; sourceTree = "<group>"; };
+		CC6027A02D704E8000DED9B7 /* FluxAIViewModel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FluxAIViewModel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CC6027932D704E2800DED9B7 /* Exceptions for "FluxAI" folder in "FluxAI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CC60276A2D704E2700DED9B7 /* FluxAI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CC60276D2D704E2700DED9B7 /* FluxAI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CC6027932D704E2800DED9B7 /* Exceptions for "FluxAI" folder in "FluxAI" target */,
+			);
+			path = FluxAI;
+			sourceTree = "<group>";
+		};
+		CC6027842D704E2800DED9B7 /* FluxAITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FluxAITests;
+			sourceTree = "<group>";
+		};
+		CC60278E2D704E2800DED9B7 /* FluxAIUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FluxAIUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC6027682D704E2700DED9B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC6027A32D704E9100DED9B7 /* SnapKit in Frameworks */,
+				CC6027AD2D704EAB00DED9B7 /* SwinjectAutoregistration in Frameworks */,
+				CC6027B72D704EFF00DED9B7 /* FluxAIViewModel in Frameworks */,
+				CC6027B22D704EB800DED9B7 /* SQLite in Frameworks */,
+				CC6027B52D704EFF00DED9B7 /* FluxAIModele in Frameworks */,
+				CC6027A82D704E9F00DED9B7 /* Swinject in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60277E2D704E2800DED9B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC6027882D704E2800DED9B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC6027622D704E2700DED9B7 = {
+			isa = PBXGroup;
+			children = (
+				CC6027A02D704E8000DED9B7 /* FluxAIViewModel */,
+				CC60279F2D704E6A00DED9B7 /* FluxAIModele */,
+				CC60276D2D704E2700DED9B7 /* FluxAI */,
+				CC6027842D704E2800DED9B7 /* FluxAITests */,
+				CC60278E2D704E2800DED9B7 /* FluxAIUITests */,
+				CC6027B32D704EFF00DED9B7 /* Frameworks */,
+				CC60276C2D704E2700DED9B7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC60276C2D704E2700DED9B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC60276B2D704E2700DED9B7 /* FluxAI.app */,
+				CC6027812D704E2800DED9B7 /* FluxAITests.xctest */,
+				CC60278B2D704E2800DED9B7 /* FluxAIUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC6027B32D704EFF00DED9B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC60276A2D704E2700DED9B7 /* FluxAI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC6027942D704E2800DED9B7 /* Build configuration list for PBXNativeTarget "FluxAI" */;
+			buildPhases = (
+				CC6027672D704E2700DED9B7 /* Sources */,
+				CC6027682D704E2700DED9B7 /* Frameworks */,
+				CC6027692D704E2700DED9B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CC60276D2D704E2700DED9B7 /* FluxAI */,
+			);
+			name = FluxAI;
+			packageProductDependencies = (
+				CC6027A22D704E9100DED9B7 /* SnapKit */,
+				CC6027A72D704E9F00DED9B7 /* Swinject */,
+				CC6027AC2D704EAB00DED9B7 /* SwinjectAutoregistration */,
+				CC6027B12D704EB800DED9B7 /* SQLite */,
+				CC6027B42D704EFF00DED9B7 /* FluxAIModele */,
+				CC6027B62D704EFF00DED9B7 /* FluxAIViewModel */,
+			);
+			productName = FluxAI;
+			productReference = CC60276B2D704E2700DED9B7 /* FluxAI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CC6027802D704E2800DED9B7 /* FluxAITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC6027992D704E2800DED9B7 /* Build configuration list for PBXNativeTarget "FluxAITests" */;
+			buildPhases = (
+				CC60277D2D704E2800DED9B7 /* Sources */,
+				CC60277E2D704E2800DED9B7 /* Frameworks */,
+				CC60277F2D704E2800DED9B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC6027832D704E2800DED9B7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CC6027842D704E2800DED9B7 /* FluxAITests */,
+			);
+			name = FluxAITests;
+			packageProductDependencies = (
+			);
+			productName = FluxAITests;
+			productReference = CC6027812D704E2800DED9B7 /* FluxAITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CC60278A2D704E2800DED9B7 /* FluxAIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC60279C2D704E2800DED9B7 /* Build configuration list for PBXNativeTarget "FluxAIUITests" */;
+			buildPhases = (
+				CC6027872D704E2800DED9B7 /* Sources */,
+				CC6027882D704E2800DED9B7 /* Frameworks */,
+				CC6027892D704E2800DED9B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC60278D2D704E2800DED9B7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CC60278E2D704E2800DED9B7 /* FluxAIUITests */,
+			);
+			name = FluxAIUITests;
+			packageProductDependencies = (
+			);
+			productName = FluxAIUITests;
+			productReference = CC60278B2D704E2800DED9B7 /* FluxAIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC6027632D704E2700DED9B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					CC60276A2D704E2700DED9B7 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					CC6027802D704E2800DED9B7 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = CC60276A2D704E2700DED9B7;
+					};
+					CC60278A2D704E2800DED9B7 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = CC60276A2D704E2700DED9B7;
+					};
+				};
+			};
+			buildConfigurationList = CC6027662D704E2700DED9B7 /* Build configuration list for PBXProject "FluxAI" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CC6027622D704E2700DED9B7;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CC6027A12D704E9100DED9B7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				CC6027A62D704E9F00DED9B7 /* XCRemoteSwiftPackageReference "Swinject" */,
+				CC6027AB2D704EAB00DED9B7 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */,
+				CC6027B02D704EB800DED9B7 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CC60276C2D704E2700DED9B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC60276A2D704E2700DED9B7 /* FluxAI */,
+				CC6027802D704E2800DED9B7 /* FluxAITests */,
+				CC60278A2D704E2800DED9B7 /* FluxAIUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC6027692D704E2700DED9B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60277F2D704E2800DED9B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC6027892D704E2800DED9B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC6027672D704E2700DED9B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60277D2D704E2800DED9B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC6027872D704E2800DED9B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC6027832D704E2800DED9B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC60276A2D704E2700DED9B7 /* FluxAI */;
+			targetProxy = CC6027822D704E2800DED9B7 /* PBXContainerItemProxy */;
+		};
+		CC60278D2D704E2800DED9B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC60276A2D704E2700DED9B7 /* FluxAI */;
+			targetProxy = CC60278C2D704E2800DED9B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CC6027952D704E2800DED9B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PTH9U4CB9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FluxAI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FluxAI;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = q.FluxAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CC6027962D704E2800DED9B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PTH9U4CB9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FluxAI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FluxAI;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = q.FluxAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		CC6027972D704E2800DED9B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CC6027982D704E2800DED9B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CC60279A2D704E2800DED9B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PTH9U4CB9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = q.FluxAITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FluxAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FluxAI";
+			};
+			name = Debug;
+		};
+		CC60279B2D704E2800DED9B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PTH9U4CB9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = q.FluxAITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FluxAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FluxAI";
+			};
+			name = Release;
+		};
+		CC60279D2D704E2800DED9B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PTH9U4CB9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = q.FluxAIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FluxAI;
+			};
+			name = Debug;
+		};
+		CC60279E2D704E2800DED9B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PTH9U4CB9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = q.FluxAIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FluxAI;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC6027662D704E2700DED9B7 /* Build configuration list for PBXProject "FluxAI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC6027972D704E2800DED9B7 /* Debug */,
+				CC6027982D704E2800DED9B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC6027942D704E2800DED9B7 /* Build configuration list for PBXNativeTarget "FluxAI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC6027952D704E2800DED9B7 /* Debug */,
+				CC6027962D704E2800DED9B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC6027992D704E2800DED9B7 /* Build configuration list for PBXNativeTarget "FluxAITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC60279A2D704E2800DED9B7 /* Debug */,
+				CC60279B2D704E2800DED9B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC60279C2D704E2800DED9B7 /* Build configuration list for PBXNativeTarget "FluxAIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC60279D2D704E2800DED9B7 /* Debug */,
+				CC60279E2D704E2800DED9B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CC6027A12D704E9100DED9B7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		CC6027A62D704E9F00DED9B7 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+		CC6027AB2D704EAB00DED9B7 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/SwinjectAutoregistration";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+		CC6027B02D704EB800DED9B7 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CC6027A22D704E9100DED9B7 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC6027A12D704E9100DED9B7 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		CC6027A72D704E9F00DED9B7 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC6027A62D704E9F00DED9B7 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		CC6027AC2D704EAB00DED9B7 /* SwinjectAutoregistration */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC6027AB2D704EAB00DED9B7 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */;
+			productName = SwinjectAutoregistration;
+		};
+		CC6027B12D704EB800DED9B7 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC6027B02D704EB800DED9B7 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
+		CC6027B42D704EFF00DED9B7 /* FluxAIModele */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FluxAIModele;
+		};
+		CC6027B62D704EFF00DED9B7 /* FluxAIViewModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FluxAIViewModel;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = CC6027632D704E2700DED9B7 /* Project object */;
+}
