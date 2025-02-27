@@ -20,17 +20,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
-        let viewController: UIViewController?
+        setSceneView()
+//        let viewController: UIViewController?
+//        if appStorageService.hasData(for: .skipOnboarding) {
+//            viewController = ViewControllerFactory.makeOnboardingViewController()
+//            let navigationController = UINavigationController(rootViewController: viewController!)
+//            self.window?.rootViewController = navigationController
+//            self.window?.makeKeyAndVisible()
+//        } else {
+//            appStorageService.saveData(key: .skipOnboarding, value: true)
+//            viewController = ViewControllerFactory.makeOnboardingViewController()
+//            let navigationController = UINavigationController(rootViewController: viewController!)
+//            self.window?.rootViewController = navigationController
+//            self.window?.makeKeyAndVisible()
+//        }
+    }
+
+    func setSceneView() {
         if appStorageService.hasData(for: .skipOnboarding) {
-            viewController = ViewControllerFactory.makeOnboardingViewController()
-            self.window?.rootViewController = viewController
-            self.window?.makeKeyAndVisible()
+            if appStorageService.hasData(for: .isEnabled) {
+                startTabBarFlow()
+            } else {
+                startNotificationFlow()
+            }
         } else {
             appStorageService.saveData(key: .skipOnboarding, value: true)
-            viewController = ViewControllerFactory.makeOnboardingViewController()
-            let navigationController = UINavigationController(rootViewController: viewController!)
-            self.window?.rootViewController = navigationController
-            self.window?.makeKeyAndVisible()
+            startOnboardingFlow()
         }
     }
 
@@ -61,7 +76,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+}
 
+extension SceneDelegate {
+    func startOnboardingFlow() {
+        let onboardingViewController = ViewControllerFactory.makeOnboardingViewController()
+        startFlow(for: onboardingViewController)
+    }
 
+    func startTabBarFlow() {
+        let tabBarViewController = ViewControllerFactory.makeTabBarViewController()
+        startTabFlow(for: tabBarViewController)
+    }
+
+    func startNotificationFlow() {
+        let ntfViewController = ViewControllerFactory.makeNotificationViewController()
+        startFlow(for: ntfViewController)
+    }
+
+    func startPaymentFlow() {
+        let paymentViewController = ViewControllerFactory.makePaymentViewController()
+        startFlow(for: paymentViewController)
+    }
+
+    func startFlow(for viewController: UIViewController) {
+        let navigationController = UINavigationController(rootViewController: viewController)
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
+    }
+
+    func startTabFlow(for viewController: UIViewController) {
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+    }
 }
 

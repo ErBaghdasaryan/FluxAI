@@ -17,7 +17,7 @@ class OnboardingViewController: BaseViewController, UICollectionViewDelegate {
     private let bottomView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .systemThickMaterialDark)
         let view = UIVisualEffectView(effect: blurEffect)
-        view.alpha = 0.7
+        view.alpha = 0.6
         view.isUserInteractionEnabled = false
         return view
     }()
@@ -48,6 +48,10 @@ class OnboardingViewController: BaseViewController, UICollectionViewDelegate {
         self.nextButton.titleLabel?.font = UIFont(name: "SFProText-Regular", size: 15)
         self.nextButton.backgroundColor = UIColor(hex: "#7500D2")
 
+        self.bottomView.layer.masksToBounds = true
+        self.bottomView.layer.cornerRadius = 16
+        self.afterBottom.layer.masksToBounds = true
+        self.afterBottom.layer.cornerRadius = 16
         self.afterBottom.backgroundColor = .black.withAlphaComponent(0.4)
 
         let mylayout = UICollectionViewFlowLayout()
@@ -174,6 +178,25 @@ extension OnboardingViewController {
         nextButton.addTarget(self, action: #selector(nextButtonTaped), for: .touchUpInside)
     }
 
+    private func rate() {
+        if #available(iOS 14.0, *) {
+            SKStoreReviewController.requestReview()
+        } else {
+            let alertController = UIAlertController(
+                title: "Enjoying the app?",
+                message: "Please consider leaving us a review in the App Store!",
+                preferredStyle: .alert
+            )
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "Go to App Store", style: .default) { _ in
+                if let appStoreURL = URL(string: "https://apps.apple.com/us/app/casino-collection/id6738487971") {
+                    UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
+                }
+            })
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+
     func performActionForPage(index: Int) {
         switch index {
         case 0:
@@ -250,6 +273,7 @@ extension OnboardingViewController {
 
         case 3:
             pageControl.setPage(3)
+            rate()
             self.header.text = viewModel?.onboardingItems[index].header
             self.subheader.text = viewModel?.onboardingItems[index].subheader
 
@@ -289,7 +313,7 @@ extension OnboardingViewController {
     }
 
     @objc func nextButtonTaped() {
-//        guard let navigationController = self.navigationController else { return }
+        guard let navigationController = self.navigationController else { return }
 
         let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
         let nextRow = self.currentIndex + 1
@@ -300,8 +324,7 @@ extension OnboardingViewController {
             self.currentIndex = nextRow
             self.performActionForPage(index: currentIndex)
         } else {
-            print("Hello")
-//            OnboardingRouter.showBalanceController(in: navigationController)
+            OnboardingRouter.showNotificationViewController(in: navigationController)
         }
     }
 

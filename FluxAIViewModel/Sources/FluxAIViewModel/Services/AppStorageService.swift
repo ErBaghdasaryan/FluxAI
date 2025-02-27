@@ -41,7 +41,6 @@ public final class AppStorageService: IAppStorageService {
 
 public enum StorageKeys: String {
     case skipOnboarding = "skipOnboarding"
-    case isAlreadyOpened = "isAlreadyOpened"
-    case alreadyOpened = "alreadyOpened"
-    case apphudUserID = "ApphudUserID"
+    case isEnabled = "isEnabled"
+    case skipPayment = "skipPayment"
 }
