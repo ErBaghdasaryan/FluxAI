@@ -24,6 +24,8 @@ class HistoryViewController: BaseViewController {
         self.view.backgroundColor = .black
 
         setupConstraints()
+        setupNavigationItems()
+        setupTitleAttributes()
     }
 
     override func setupViewModel() {
@@ -41,6 +43,34 @@ extension HistoryViewController {
     
     private func makeButtonsAction() {
 
+    }
+
+    private func setupNavigationItems() {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "proButton"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        button.addTarget(self, action: #selector(getProSubscription), for: .touchUpInside)
+
+        let proButton = UIBarButtonItem(customView: button)
+        navigationItem.rightBarButtonItem = proButton
+    }
+
+    func setupTitleAttributes() {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "SFProText-Bold", size: 24)!,
+            .foregroundColor: UIColor.white
+        ]
+
+        let titleString = NSAttributedString(string: "History", attributes: attributes)
+        navigationController?.navigationBar.topItem?.title = nil
+        navigationController?.navigationBar.topItem?.titleView = UILabel()
+        (navigationController?.navigationBar.topItem?.titleView as? UILabel)?.attributedText = titleString
+    }
+
+    @objc func getProSubscription() {
+        guard let navigationController = self.navigationController else { return }
+
+        HistoryRouter.showPaymentViewController(in: navigationController)
     }
 }
 
