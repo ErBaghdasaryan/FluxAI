@@ -24,6 +24,7 @@ class HomeViewController: BaseViewController {
         self.view.backgroundColor = .black
 
         setupConstraints()
+        setupNavigationItems()
     }
 
     override func setupViewModel() {
@@ -41,6 +42,22 @@ extension HomeViewController {
     
     private func makeButtonsAction() {
 
+    }
+
+    private func setupNavigationItems() {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "getPro"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 113, height: 32)
+        button.addTarget(self, action: #selector(getProSubscription), for: .touchUpInside)
+
+        let proButton = UIBarButtonItem(customView: button)
+        navigationItem.rightBarButtonItem = proButton
+    }
+
+    @objc func getProSubscription() {
+        guard let navigationController = self.navigationController else { return }
+
+        HomeRouter.showPaymentViewController(in: navigationController)
     }
 }
 

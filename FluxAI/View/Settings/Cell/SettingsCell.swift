@@ -28,8 +28,8 @@ class SettingsCell: UICollectionViewCell, IReusableView {
         contentView.addSubview(icon)
         contentView.addSubview(title)
 
-        icon.frame = CGRect(x: 12, y: 12, width: 20, height: 20)
-        title.frame = CGRect(x: 44, y: 12, width: contentView.frame.width - 56, height: 20)
+        icon.frame = CGRect(x: 12, y: 16, width: 20, height: 20)
+        title.frame = CGRect(x: 44, y: 16, width: contentView.frame.width - 56, height: 20)
 
         contentView.layer.cornerRadius = 16
         contentView.backgroundColor = UIColor(hex: "#3E3E3E")
