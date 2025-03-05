@@ -23,10 +23,9 @@ public class HistoryViewModel: IHistoryViewModel {
         self.historyService = historyService
     }
 
-    //MARK: TODO
     public func loadShares() {
         do {
-//            self.savedItems = try self.historyService.getShares()
+            self.savedItems = try self.historyService.getHistories()
         } catch {
             print(error)
         }

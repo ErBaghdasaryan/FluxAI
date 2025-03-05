@@ -19,6 +19,12 @@ class HistoryViewController: BaseViewController {
         makeButtonsAction()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.loadShares()
+        self.collectionView.reloadData()
+    }
+
     override func setupUI() {
         super.setupUI()
 
@@ -56,8 +62,6 @@ class HistoryViewController: BaseViewController {
 
     override func setupViewModel() {
         super.setupViewModel()
-        self.viewModel?.loadShares()
-        self.collectionView.reloadData()
     }
 
     func setupConstraints() {
@@ -138,7 +142,7 @@ extension HistoryViewController: UICollectionViewDataSource, UICollectionViewDel
             let numberOfColumns: CGFloat = 2
             let spacing: CGFloat = 17
             let totalSpacing = ((numberOfColumns - 1) * spacing)
-            let availableWidth = self.view.frame.width - totalSpacing
+            let availableWidth = collectionView.frame.width - totalSpacing
             let itemWidth = availableWidth / numberOfColumns
 
             return CGSize(width: itemWidth, height: 244)

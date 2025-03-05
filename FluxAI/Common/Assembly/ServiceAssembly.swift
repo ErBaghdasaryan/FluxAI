@@ -17,5 +17,6 @@ public final class ServiceAssembly: Assembly {
     public func assemble(container: Container) {
         container.autoregister(IKeychainService.self, initializer: KeychainService.init)
         container.autoregister(IAppStorageService.self, initializer: AppStorageService.init)
+        container.autoregister(INetworkService.self, initializer: NetworkService.init)
     }
 }

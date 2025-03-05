@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC4AC52C2D78983D00C47A81 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CC4AC52B2D78983D00C47A81 /* SDWebImage */; };
+		CC4AC52E2D78983D00C47A81 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CC4AC52D2D78983D00C47A81 /* SDWebImageMapKit */; };
 		CC6027A32D704E9100DED9B7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027A22D704E9100DED9B7 /* SnapKit */; };
 		CC6027A82D704E9F00DED9B7 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027A72D704E9F00DED9B7 /* Swinject */; };
 		CC6027AD2D704EAB00DED9B7 /* SwinjectAutoregistration in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027AC2D704EAB00DED9B7 /* SwinjectAutoregistration */; };
@@ -79,8 +81,10 @@
 				CC6027A32D704E9100DED9B7 /* SnapKit in Frameworks */,
 				CC6027AD2D704EAB00DED9B7 /* SwinjectAutoregistration in Frameworks */,
 				CC6027B72D704EFF00DED9B7 /* FluxAIViewModel in Frameworks */,
+				CC4AC52C2D78983D00C47A81 /* SDWebImage in Frameworks */,
 				CC6027B22D704EB800DED9B7 /* SQLite in Frameworks */,
 				CC6027B52D704EFF00DED9B7 /* FluxAIModele in Frameworks */,
+				CC4AC52E2D78983D00C47A81 /* SDWebImageMapKit in Frameworks */,
 				CC6027A82D704E9F00DED9B7 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,6 +162,8 @@
 				CC6027B12D704EB800DED9B7 /* SQLite */,
 				CC6027B42D704EFF00DED9B7 /* FluxAIModele */,
 				CC6027B62D704EFF00DED9B7 /* FluxAIViewModel */,
+				CC4AC52B2D78983D00C47A81 /* SDWebImage */,
+				CC4AC52D2D78983D00C47A81 /* SDWebImageMapKit */,
 			);
 			productName = FluxAI;
 			productReference = CC60276B2D704E2700DED9B7 /* FluxAI.app */;
@@ -246,6 +252,7 @@
 				CC6027A62D704E9F00DED9B7 /* XCRemoteSwiftPackageReference "Swinject" */,
 				CC6027AB2D704EAB00DED9B7 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */,
 				CC6027B02D704EB800DED9B7 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+				CC4AC52A2D78983C00C47A81 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CC60276C2D704E2700DED9B7 /* Products */;
@@ -331,7 +338,7 @@
 				DEVELOPMENT_TEAM = 5PTH9U4CB9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FluxAI/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = FluxAI;
+				INFOPLIST_KEY_CFBundleDisplayName = "Flux AI";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -364,7 +371,7 @@
 				DEVELOPMENT_TEAM = 5PTH9U4CB9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FluxAI/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = FluxAI;
+				INFOPLIST_KEY_CFBundleDisplayName = "Flux AI";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -620,6 +627,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CC4AC52A2D78983C00C47A81 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.0;
+			};
+		};
 		CC6027A12D704E9100DED9B7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -655,6 +670,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CC4AC52B2D78983D00C47A81 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC4AC52A2D78983C00C47A81 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		CC4AC52D2D78983D00C47A81 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC4AC52A2D78983C00C47A81 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
 		CC6027A22D704E9100DED9B7 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CC6027A12D704E9100DED9B7 /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -15,9 +15,6 @@ class HistoryCollectionViewCell: UICollectionViewCell, IReusableView {
     private let date = UILabel(text: "Unknown",
                                textColor: UIColor(hex: "#8D929B")!,
                                font: UIFont(name: "SFProText-Regular", size: 12))
-    private let time = UILabel(text: "Unknown",
-                               textColor: UIColor(hex: "#8D929B")!,
-                               font: UIFont(name: "SFProText-Regular", size: 12))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,9 +34,10 @@ class HistoryCollectionViewCell: UICollectionViewCell, IReusableView {
         self.image.layer.cornerRadius = 16
         self.image.contentMode = .scaleAspectFill
 
+        self.date.textAlignment = .left
+
         self.addSubview(image)
         self.addSubview(date)
-        self.addSubview(time)
         setupConstraints()
     }
 
@@ -53,13 +51,7 @@ class HistoryCollectionViewCell: UICollectionViewCell, IReusableView {
 
         date.snp.makeConstraints { view in
             view.top.equalTo(image.snp.bottom).offset(8)
-            view.leading.equalToSuperview()
-            view.height.equalTo(14)
-        }
-
-        time.snp.makeConstraints { view in
-            view.top.equalTo(image.snp.bottom).offset(8)
-            view.leading.equalTo(date.snp.trailing).offset(8)
+            view.leading.trailing.equalToSuperview()
             view.height.equalTo(14)
         }
     }
@@ -67,6 +59,5 @@ class HistoryCollectionViewCell: UICollectionViewCell, IReusableView {
     func configure(with model: HistoryModel) {
         self.image.image = model.image
         self.date.text = model.date
-        self.time.text = model.time
     }
 }
