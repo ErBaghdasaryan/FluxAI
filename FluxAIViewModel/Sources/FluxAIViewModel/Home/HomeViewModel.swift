@@ -27,6 +27,7 @@ public class HomeViewModel: IHomeViewModel {
     public var fetchGenerationModel: GenerationStatusResponseModel?
     public var createByPromptSuccessSubject = PassthroughSubject<Bool, Never>()
     public var fetchGenerationSuccessSubject = PassthroughSubject<Bool, Never>()
+    var cancellables = Set<AnyCancellable>()
 
     public init(homeService: IHomeService, networkService: INetworkService) {
         self.homeService = homeService
@@ -46,15 +47,19 @@ public class HomeViewModel: IHomeViewModel {
     }
 
     public func fetchGenerationStatus(userId: String?, jobId: String) {
-        Task {
-            do {
-                let response = try await networkService.fetchGenerationStatus(userId: userId, jobId: jobId)
-                fetchGenerationModel = response
-                self.fetchGenerationSuccessSubject.send(true)
-            } catch {
-                self.fetchGenerationSuccessSubject.send(false)
-            }
-        }
+        networkService.fetchGenerationStatus(userId: userId, jobId: jobId)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure:
+                    self?.fetchGenerationSuccessSubject.send(false)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] response in
+                self?.fetchGenerationModel = response
+                self?.fetchGenerationSuccessSubject.send(true)
+            })
+            .store(in: &cancellables)
     }
 
     public func addHistory(_ model: HistoryModel) {

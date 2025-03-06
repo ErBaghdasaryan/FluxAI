@@ -22,7 +22,7 @@ final class TermsViewController: BaseViewController {
         self.navigationController?.navigationBar.tintColor = .black
         self.webView.backgroundColor = .clear
         self.title = "Terms&Conditions"
-        if let url = URL(string: "https://www.termsfeed.com/live/87a1ed10-b693-4c21-b95f-caaf3e3f7966") {
+        if let url = URL(string: "https://docs.google.com/document/d/1mKCQJAxHHo6JAqNCZfa85-RKlhjc6VBBhRDUVbaQPVc/edit?usp=sharing") {
             webView.load(URLRequest(url: url))
         }
 

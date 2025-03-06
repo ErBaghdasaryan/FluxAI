@@ -16,9 +16,8 @@ class HomeViewController: BaseViewController {
 
     private let promptView = PromptView()
     private let useByPrompt = UIButton(type: .system)
-    private let chooseAvatar = UILabel(text: "Chose avatar",
-                                       textColor: UIColor(hex: "#8D929B")!,
-                                       font: UIFont(name: "SFProText-Bold", size: 18))
+    private let chooseAvatar = ChoseAvatarView()
+    private let activityIndicator = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +36,21 @@ class HomeViewController: BaseViewController {
         self.useByPrompt.setTitleColor(.white, for: .normal)
         self.useByPrompt.titleLabel?.font = UIFont(name: "SFProText-Semibold", size: 15)
 
-        self.chooseAvatar.textAlignment = .left
+        self.activityIndicator.color = UIColor(hex: "#7500D2")
+        self.activityIndicator.style = .large
+        self.activityIndicator.hidesWhenStopped = true
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseTapped))
+        tapGesture.cancelsTouchesInView = false
+        self.chooseAvatar.addGestureRecognizer(tapGesture)
 
         self.view.addSubview(promptView)
         self.view.addSubview(useByPrompt)
         self.view.addSubview(chooseAvatar)
+        self.view.addSubview(activityIndicator)
         setupConstraints()
         setupNavigationItems()
+        setupViewTapHandling()
     }
 
     override func setupViewModel() {
@@ -54,9 +61,18 @@ class HomeViewController: BaseViewController {
                 let userId = "ios-test-user-11"
                 guard let jobID = self.viewModel?.requestResponse?.data.jobID else { return }
 
-                self.viewModel?.fetchGenerationStatus(userId: userId, jobId: jobID)
+                DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    self.viewModel?.fetchGenerationStatus(userId: userId, jobId: jobID)
+                }
             } else {
-                print("ERROR1")
+                DispatchQueue.main.async {
+                    self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
+                }
             }
         }.store(in: &cancellables)
 
@@ -74,11 +90,15 @@ class HomeViewController: BaseViewController {
                 }
 
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
                     self.showSuccessAlert(message: "You have successfully created your drawing! You can see it in the 'History' section.")
                 }
-                
+
             } else {
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
                     self.showBadAlert(message: "You couldn't create an image! Please try again.")
                 }
             }
@@ -105,7 +125,13 @@ class HomeViewController: BaseViewController {
             view.top.equalTo(useByPrompt.snp.bottom).offset(28)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(20)
+        }
+
+        activityIndicator.snp.makeConstraints { view in
+            view.centerY.equalTo(promptView.snp.centerY)
+            view.centerX.equalTo(promptView.snp.centerX)
+            view.width.equalTo(30)
+            view.height.equalTo(30)
         }
     }
 
@@ -120,9 +146,18 @@ extension HomeViewController {
 
     @objc func useByPromptTapped() {
         let userId = "ios-test-user-11"
-        guard let prompt = self.promptView.getPromptText() else { return }
+        guard let prompt = self.promptView.getPromptText() else {
+            self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
+            return
+        }
 
         viewModel?.createByPromptRequest(userId: userId, prompt: prompt)
+    }
+
+    @objc private func choseTapped() {
+        self.chooseAvatar.openButton()
+        self.useByPrompt.backgroundColor = UIColor(hex: "#7500D2")?.withAlphaComponent(0.5)
+        self.useByPrompt.isUserInteractionEnabled = false
     }
 
     private func setupNavigationItems() {
@@ -203,6 +238,22 @@ extension HomeViewController: IViewModelableController {
     typealias ViewModel = IHomeViewModel
 }
 
+//MARK: UIGesture & cell's touches
+extension HomeViewController: UITextFieldDelegate, UITextViewDelegate {
+
+    @objc private func hideKeyboard() {
+        self.view.endEditing(true)
+        self.chooseAvatar.closeButton()
+        self.useByPrompt.isUserInteractionEnabled = true
+        self.useByPrompt.backgroundColor = UIColor(hex: "#7500D2")
+    }
+
+    private func setupViewTapHandling() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapGesture)
+    }
+}
 
 //MARK: Preview
 import SwiftUI

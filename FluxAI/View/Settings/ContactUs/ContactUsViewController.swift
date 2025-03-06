@@ -22,7 +22,7 @@ final class ContactUsViewController: BaseViewController {
         self.title = "Contact us"
         self.navigationController?.navigationBar.tintColor = .black
         self.webView.backgroundColor = .clear
-        if let url = URL(string: "https://www.termsfeed.com/live/87a1ed10-b693-4c21-b95f-caaf3e3f7966") {
+        if let url = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSf2MIMwp1ZOS9OEM_NCXb7nP_cJIb3Zlm9IXaxA6WdN1GG1cQ/viewform?usp=header") {
             webView.load(URLRequest(url: url))
         }
 

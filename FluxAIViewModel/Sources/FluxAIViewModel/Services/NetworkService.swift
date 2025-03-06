@@ -7,10 +7,11 @@
 
 import Foundation
 import FluxAIModele
+import Combine
 
 public protocol INetworkService {
     func createByPromptRequest(userId: String?, prompt: String?) async throws -> RequestResponseModel
-    func fetchGenerationStatus(userId: String?, jobId: String) async throws -> GenerationStatusResponseModel
+    func fetchGenerationStatus(userId: String?, jobId: String) -> AnyPublisher<GenerationStatusResponseModel, Error>
 }
 
 public final class NetworkService: INetworkService {
@@ -40,7 +41,7 @@ public final class NetworkService: INetworkService {
         return result
     }
 
-    public func fetchGenerationStatus(userId: String? = nil, jobId: String) async throws -> GenerationStatusResponseModel {
+    public func fetchGenerationStatus(userId: String? = nil, jobId: String) -> AnyPublisher<GenerationStatusResponseModel, Error> {
         var components = URLComponents(string: "https://bot.fotobudka.online/api/v1/services/status")
         var queryItems = [URLQueryItem(name: "jobId", value: jobId)]
 
@@ -49,13 +50,24 @@ public final class NetworkService: INetworkService {
         }
         components?.queryItems = queryItems
 
-        let url = components?.url
-        var request = URLRequest(url: url!)
+        guard let url = components?.url else {
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+        }
+
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer f113066f-2ad6-43eb-b860-8683fde1042a", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = 60
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let result = try JSONDecoder().decode(GenerationStatusResponseModel.self, from: data)
-        return result
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .decode(type: GenerationStatusResponseModel.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
 }

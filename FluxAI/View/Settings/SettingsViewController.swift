@@ -254,7 +254,7 @@ extension SettingsViewController {
             )
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "Go to App Store", style: .default) { _ in
-                if let appStoreURL = URL(string: "https://apps.apple.com/us/app/seaart-ai/id6740988894") {
+                if let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6742786924") {
                     UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
                 }
             })
@@ -263,7 +263,7 @@ extension SettingsViewController {
     }
 
     private func shareTapped() {
-        let appStoreURL = URL(string: "https://apps.apple.com/us/app/seaart-ai/id6740988894")!
+        let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6742786924")!
 
         let activityViewController = UIActivityViewController(activityItems: [appStoreURL], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
