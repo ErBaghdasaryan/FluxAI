@@ -11,26 +11,53 @@ import Combine
 public protocol IHomeViewModel {
     var requestResponse: RequestResponseModel? { get set }
     var fetchGenerationModel: GenerationStatusResponseModel? { get set }
+    var avatars: AvatarsResponseModel? { get set }
     var createByPromptSuccessSubject: PassthroughSubject<Bool, Never> { get }
     var fetchGenerationSuccessSubject: PassthroughSubject<Bool, Never> { get }
+    var avatarsLoadSuccessSubject: PassthroughSubject<Bool, Never> { get }
     func createByPromptRequest(userId: String?, prompt: String?)
     func fetchGenerationStatus(userId: String?, jobId: String)
     func addHistory(_ model: HistoryModel)
+    var savedPrompt: String { get set }
+    var savedAspectRatio: String { get set }
+    func getAvatars(userId: String)
 }
 
 public class HomeViewModel: IHomeViewModel {
 
     private let homeService: IHomeService
-    let networkService: INetworkService
+    public let networkService: INetworkService
+    public var appStorageService: IAppStorageService
 
     public var requestResponse: RequestResponseModel?
     public var fetchGenerationModel: GenerationStatusResponseModel?
+    public var avatars: AvatarsResponseModel?
     public var createByPromptSuccessSubject = PassthroughSubject<Bool, Never>()
     public var fetchGenerationSuccessSubject = PassthroughSubject<Bool, Never>()
+    public var avatarsLoadSuccessSubject = PassthroughSubject<Bool, Never>()
     var cancellables = Set<AnyCancellable>()
 
-    public init(homeService: IHomeService, networkService: INetworkService) {
+    public var savedPrompt: String {
+        get {
+            return appStorageService.getData(key: .savedPrompt) ?? ""
+        } set {
+            appStorageService.saveData(key: .savedPrompt, value: newValue)
+        }
+    }
+
+    public var savedAspectRatio: String {
+        get {
+            return appStorageService.getData(key: .savedAspectRatio) ?? ""
+        } set {
+            appStorageService.saveData(key: .savedAspectRatio, value: newValue)
+        }
+    }
+
+    public init(homeService: IHomeService,
+                appStorageService: IAppStorageService,
+                networkService: INetworkService) {
         self.homeService = homeService
+        self.appStorageService = appStorageService
         self.networkService = networkService
     }
 
@@ -58,6 +85,22 @@ public class HomeViewModel: IHomeViewModel {
             }, receiveValue: { [weak self] response in
                 self?.fetchGenerationModel = response
                 self?.fetchGenerationSuccessSubject.send(true)
+            })
+            .store(in: &cancellables)
+    }
+
+    public func getAvatars(userId: String) {
+        networkService.getAvatars(userId: userId)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure:
+                    self?.avatarsLoadSuccessSubject.send(false)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] response in
+                self?.avatars = response
+                self?.avatarsLoadSuccessSubject.send(true)
             })
             .store(in: &cancellables)
     }

@@ -56,9 +56,13 @@ class HomeViewController: BaseViewController {
     override func setupViewModel() {
         super.setupViewModel()
 
+        let userId = "ios-test-user-12"
+
+        self.viewModel?.getAvatars(userId: userId)
+
         self.viewModel?.createByPromptSuccessSubject.sink { success in
             if success {
-                let userId = "ios-test-user-11"
+//                let userId = "ios-test-user-11"
                 guard let jobID = self.viewModel?.requestResponse?.data.jobID else { return }
 
                 DispatchQueue.main.async {
@@ -103,6 +107,15 @@ class HomeViewController: BaseViewController {
                 }
             }
         }.store(in: &cancellables)
+
+        self.viewModel?.avatarsLoadSuccessSubject.sink { success in
+            if success {
+                guard let model = self.viewModel?.avatars?.data else { return }
+
+                self.chooseAvatar.setupAvatars(model: model)
+
+            }
+        }.store(in: &cancellables)
     }
 
     func setupConstraints() {
@@ -142,10 +155,48 @@ extension HomeViewController {
     
     private func makeButtonsAction() {
         useByPrompt.addTarget(self, action: #selector(useByPromptTapped), for: .touchUpInside)
+
+        setupSubscriptions()
+    }
+
+    private func setupSubscriptions() {
+        chooseAvatar.createTappedSubject.sink { [weak self] in
+            self?.createByModelAvatar()
+        }.store(in: &cancellables)
+
+        chooseAvatar.plusTappedSubject.sink { [weak self] in
+            self?.handleCreateAvatar()
+        }.store(in: &cancellables)
+
+        chooseAvatar.editTappedSubject.sink { [weak self] image in
+            self?.showEditPhotoViewController(image: image)
+        }.store(in: &cancellables)
+    }
+
+    private func showEditPhotoViewController(image: UIImage) {
+        guard let navigationController = self.navigationController else { return }
+
+        HomeRouter.showEditPhotoViewController(in: navigationController,
+                                               navigationModel: .init(image: image))
+    }
+
+    private func handleCreateAvatar() {
+        guard let navigationController = self.navigationController else { return }
+
+        HomeRouter.showIntroViewController(in: navigationController)
+    }
+
+    private func createByModelAvatar() {
+        guard let navigationController = self.navigationController else { return }
+        guard let prompt = self.promptView.getPromptText() else {
+            self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
+            return
+        }
+        guard let aspectRatio = self.promptView.getCurrentAspectRatio() else { return }
     }
 
     @objc func useByPromptTapped() {
-        let userId = "ios-test-user-11"
+        let userId = "ios-test-user-12"
         guard let prompt = self.promptView.getPromptText() else {
             self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
             return

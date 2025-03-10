@@ -51,11 +51,43 @@ final class ViewControllerFactory {
         return viewController
     }
 
+    //MARK: Intro
+    static func makeIntroViewController() -> IntroViewController {
+        let assembler = Assembler(commonAssemblies + [IntroAssembly()])
+        let viewController = IntroViewController()
+        viewController.viewModel = assembler.resolver.resolve(IIntroViewModel.self)
+        return viewController
+    }
+
+    //MARK: AddAvatar
+    static func makeAddAvatarViewController() -> AddAvatarViewController {
+        let assembler = Assembler(commonAssemblies + [AddAvatarAssembly()])
+        let viewController = AddAvatarViewController()
+        viewController.viewModel = assembler.resolver.resolve(IAddAvatarViewModel.self)
+        return viewController
+    }
+
+    //MARK: Generate
+    static func makeGenerateViewController(navigationModel: AvatarGenerationNavigationModel) -> GenerateViewController {
+        let assembler = Assembler(commonAssemblies + [GenerateAssembly()])
+        let viewController = GenerateViewController()
+        viewController.viewModel = assembler.resolver.resolve(IGenerateViewModel.self, argument: navigationModel)
+        return viewController
+    }
+
     //MARK: History
     static func makeHistoryViewController() -> HistoryViewController {
         let assembler = Assembler(commonAssemblies + [HistoryAssembly()])
         let viewController = HistoryViewController()
         viewController.viewModel = assembler.resolver.resolve(IHistoryViewModel.self)
+        return viewController
+    }
+
+    //MARK: EditPhoto
+    static func makeEditPhotoViewController(navigationModel: EditPhotoNavigationModel) -> EditPhotoViewController {
+        let assembler = Assembler(commonAssemblies + [EditPhotoAssembly()])
+        let viewController = EditPhotoViewController()
+        viewController.viewModel = assembler.resolver.resolve(IEditPhotoViewModel.self, argument: navigationModel)
         return viewController
     }
 

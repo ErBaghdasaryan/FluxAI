@@ -99,8 +99,11 @@ class PromptView: UIView {
     }
 
     func getPromptText() -> String? {
-        guard let text = self.text.text else { return nil }
-        return text
+        if self.text.text == "" {
+            return nil
+        } else {
+            return text.text
+        }
     }
 }
 

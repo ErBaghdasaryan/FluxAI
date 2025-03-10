@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+import FluxAIModele
 
 class ChoseAvatarView: UIView {
 
@@ -14,18 +16,29 @@ class ChoseAvatarView: UIView {
                                  font: UIFont(name: "SFProText-Bold", size: 18))
     var collectionView: UICollectionView!
     private var selectedIndex: IndexPath?
-    private var selectedAvatar: String?
-    private let collectionViewData: [String] = ["Horror", "Zodiac", "Fashion"]
+    private var selectedAvatar: Avatar?
+    private var collectionViewData: [Avatar] = []
     private let create = UIButton(type: .system)
+    let editTappedSubject = PassthroughSubject<UIImage, Never>()
+    let plusTappedSubject = PassthroughSubject<Void, Never>()
+    let createTappedSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cancellables.removeAll()
+    }
 
     init() {
         super.init(frame: .zero)
         setupUI()
+        makeButtonActions()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
+        makeButtonActions()
     }
 
     private func setupUI() {
@@ -61,12 +74,10 @@ class ChoseAvatarView: UIView {
         self.create.setTitleColor(.white, for: .normal)
         self.create.titleLabel?.font = UIFont(name: "SFProText-Semibold", size: 15)
 
-//        selectedAspectRatio = self.aspectRatioData[selectedIndex.row]
         collectionView.reloadData()
 
         self.addSubview(header)
         self.addSubview(collectionView)
-//        self.addSubview(aspectRatio)
         setupConstraints()
     }
 
@@ -119,6 +130,17 @@ class ChoseAvatarView: UIView {
             view.height.equalTo(147)
         }
     }
+
+    func setupAvatars(model: [Avatar]) {
+        self.collectionViewData = model
+        self.collectionView.reloadData()
+    }
+
+    func returnSelectedAvatar() -> Avatar? {
+        guard let selectedAvatar = self.selectedAvatar else { return nil }
+
+        return selectedAvatar
+    }
 }
 
 extension ChoseAvatarView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -134,8 +156,25 @@ extension ChoseAvatarView: UICollectionViewDelegateFlowLayout, UICollectionViewD
         } else {
             let cell: AvatarCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
             let dataIndex = indexPath.row - 1
-            cell.setup(with: self.collectionViewData[dataIndex], image: UIImage(named: "logo")!)
+
             cell.updateSelectionState(isSelected: indexPath == selectedIndex)
+
+            self.loadImage(from: self.collectionViewData[dataIndex].preview) { image in
+                if let image = image {
+                    cell.setup(with: "",
+                               image: image)
+                }
+            }
+
+            cell.editSubject.sink { [weak self] _ in
+                guard let self = self else { return }
+                self.loadImage(from: self.collectionViewData[dataIndex].preview) { image in
+                    if let image = image {
+                        self.editTappedSubject.send(image)
+                    }
+                }
+            }.store(in: &cell.cancellables)
+
             return cell
         }
     }
@@ -146,12 +185,50 @@ extension ChoseAvatarView: UICollectionViewDelegateFlowLayout, UICollectionViewD
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard indexPath.row != 0 else {
-            print("Plus cell tapped")
+            self.plusTapped()
             return
         }
         selectedIndex = indexPath
 
         collectionView.reloadData()
         selectedAvatar = self.collectionViewData[indexPath.row - 1]
+    }
+}
+
+extension ChoseAvatarView {
+    private func makeButtonActions() {
+        self.create.addTarget(self, action: #selector(createTapped), for: .touchUpInside)
+    }
+
+    @objc func createTapped() {
+        createTappedSubject.send()
+    }
+
+    private func plusTapped() {
+        plusTappedSubject.send()
+    }
+
+    func loadImage(from url: String, completion: @escaping (UIImage?) -> Void) {
+        guard let imageURL = URL(string: url) else {
+            completion(nil)
+            return
+        }
+
+        URLSession.shared.dataTask(with: imageURL) { data, response, error in
+            if let error = error {
+                print("Error loading image: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+
+            guard let data = data, let image = UIImage(data: data) else {
+                completion(nil)
+                return
+            }
+
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }.resume()
     }
 }

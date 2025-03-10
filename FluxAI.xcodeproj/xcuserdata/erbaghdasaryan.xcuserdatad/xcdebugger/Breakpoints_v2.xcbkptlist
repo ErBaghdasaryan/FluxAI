@@ -20,5 +20,157 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BFD1729F-7BA5-435B-AE77-D8373773DAE5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FluxAI/View/Generation/Generate/GenerateViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "setupViewModel()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BFD1729F-7BA5-435B-AE77-D8373773DAE5 - 829bd8ea047a1280"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool) -&gt; () in FluxAI.GenerateViewController.setupViewModel() -&gt; ()"
+                  moduleName = "FluxAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAI/View/Generation/Generate/GenerateViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62">
+               </Location>
+               <Location
+                  uuid = "BFD1729F-7BA5-435B-AE77-D8373773DAE5 - 9df8b391c5feae8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Bool) -&gt; () in FluxAI.GenerateViewController.setupViewModel() -&gt; ()"
+                  moduleName = "FluxAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAI/View/Generation/Generate/GenerateViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D2F1B15F-2D27-4E06-9D8D-31C4E34363B0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FluxAI/View/Generation/Generate/GenerateViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "sendRequests()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "createAvatarRequest(userId:gender:photos:preview:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 4f9fd9df524736d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in FluxAIViewModel.GenerateViewModel.createAvatarRequest(userId: Swift.String, gender: Swift.String, photos: Swift.Optional&lt;Swift.Array&lt;Foundation.URL&gt;&gt;, preview: Foundation.URL) -&gt; ()"
+                  moduleName = "FluxAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+               <Location
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - d5d79607483409a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in FluxAIViewModel.GenerateViewModel.createAvatarRequest(userId: Swift.String, gender: Swift.String, photos: Swift.Optional&lt;Swift.Array&lt;Foundation.URL&gt;&gt;, preview: Foundation.URL) -&gt; ()"
+                  moduleName = "FluxAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+               <Location
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 54db0e3bc6e7ad3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in FluxAIViewModel.GenerateViewModel.createAvatarRequest(userId: Swift.String, gender: Swift.String, photos: Swift.Optional&lt;Swift.Array&lt;Foundation.URL&gt;&gt;, preview: Foundation.URL) -&gt; ()"
+                  moduleName = "FluxAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+               <Location
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 5e6a44786f7918d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async -&gt; () in FluxAIViewModel.GenerateViewModel.createAvatarRequest(userId: Swift.String, gender: Swift.String, photos: Swift.Optional&lt;Swift.Array&lt;Foundation.URL&gt;&gt;, preview: Foundation.URL) -&gt; ()"
+                  moduleName = "FluxAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C826A490-F09F-4F85-BE01-10DF99C35C4B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FluxAIViewModel/Sources/FluxAIViewModel/Services/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "createAvatarRequest(userId:gender:photos:preview:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
