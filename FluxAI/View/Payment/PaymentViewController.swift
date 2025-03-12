@@ -283,6 +283,8 @@ extension PaymentViewController {
 
                 if previousViewController is NotificationViewController {
                     PyamentRouter.showTabBarViewController(in: navigationController)
+                } else if previousViewController is IntroViewController {
+                    PyamentRouter.showTabBarFromIntroViewController(in: navigationController)
                 } else {
                     navigationController.navigationBar.isHidden = false
                     navigationController.navigationItem.hidesBackButton = false

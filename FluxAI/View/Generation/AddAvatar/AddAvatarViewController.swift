@@ -81,6 +81,15 @@ class AddAvatarViewController: BaseViewController {
 
     override func setupViewModel() {
         super.setupViewModel()
+
+        guard let userID = self.viewModel?.userID else {
+            return
+        }
+
+        let bundle = Bundle.main.bundleIdentifier ?? ""
+        self.viewModel?.login(userId: userID,
+                              gender: "m",
+                              source: bundle)
     }
 
     func setupConstraints() {
@@ -131,6 +140,7 @@ extension AddAvatarViewController {
 
     @objc func createTapped() {
         guard let navigationController = self.navigationController else { return }
+        guard let response = self.viewModel?.loginResponse else { return }
 
         if collectionViewDataFromSend.isEmpty {
             self.showBadAlert(message: "You don't have any added images. Add one or more images to continue the action.")
@@ -142,23 +152,6 @@ extension AddAvatarViewController {
                                                                               previewFile: self.collectionViewDataFromSend.first!))
         }
     }
-
-//    func saveImageToFile(image: UIImage) -> URL? {
-//        let fileManager = FileManager.default
-//        guard let data = image.jpegData(compressionQuality: 1.0) else { return nil }
-//        
-//        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let fileName = UUID().uuidString + ".jpg"
-//        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-//
-//        do {
-//            try data.write(to: fileURL)
-//            return fileURL
-//        } catch {
-//            print("Error saving image to file: \(error)")
-//            return nil
-//        }
-//    }
 
     @objc func addImageTapped() {
         let imagePickerController = UIImagePickerController()

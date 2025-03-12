@@ -60,6 +60,11 @@ class HomeViewController: BaseViewController {
             return
         }
 
+        let bundle = Bundle.main.bundleIdentifier ?? ""
+        self.viewModel?.login(userId: userID,
+                              gender: "m",
+                              source: bundle)
+
         self.viewModel?.getAvatars(userId: userID)
 
         self.viewModel?.createByPromptSuccessSubject.sink { success in
@@ -183,8 +188,16 @@ extension HomeViewController {
 
     private func handleCreateAvatar() {
         guard let navigationController = self.navigationController else { return }
+        guard let userID = self.viewModel?.userID else {
+            return
+        }
+        guard let response = self.viewModel?.loginResponse else { return }
 
-        HomeRouter.showIntroViewController(in: navigationController)
+        if response.data.stat.availableGenerations == 0 {
+            self.getProSubscription()
+        } else {
+            HomeRouter.showIntroViewController(in: navigationController)
+        }
     }
 
     private func createByModelAvatar() {
@@ -194,8 +207,15 @@ extension HomeViewController {
             return
         }
         guard let aspectRatio = self.promptView.getCurrentAspectRatio() else { return }
+        guard let avatar = self.chooseAvatar.returnSelectedAvatar() else {
+            self.showBadAlert(message: "First, select or add an avatar.")
+            return
+        }
+        guard let response = self.viewModel?.loginResponse else { return }
 
-        
+        if response.data.stat.availableGenerations == 0 {
+            self.getProSubscription()
+        }
     }
 
     @objc func useByPromptTapped() {
@@ -206,8 +226,13 @@ extension HomeViewController {
             self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
             return
         }
+        guard let response = self.viewModel?.loginResponse else { return }
 
-        viewModel?.createByPromptRequest(userId: userID, prompt: prompt)
+        if response.data.stat.availableGenerations == 0 {
+            self.getProSubscription()
+        } else {
+            viewModel?.createByPromptRequest(userId: userID, prompt: prompt)
+        }
     }
 
     @objc private func choseTapped() {

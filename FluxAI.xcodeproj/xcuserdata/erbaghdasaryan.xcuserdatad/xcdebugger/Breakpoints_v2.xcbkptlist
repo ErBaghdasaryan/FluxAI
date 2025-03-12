@@ -92,13 +92,13 @@
             filePath = "FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "createAvatarRequest(userId:gender:photos:preview:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 4f9fd9df52472865"
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 4f9fd9df52472882"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -108,11 +108,11 @@
                   urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
+                  startingLineNumber = "56"
+                  endingLineNumber = "56">
                </Location>
                <Location
-                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - d5d796074834171d"
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - d5d79607483417fa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -122,11 +122,11 @@
                   urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
+                  startingLineNumber = "56"
+                  endingLineNumber = "56">
                </Location>
                <Location
-                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 54db0e3bc6e6467"
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 54db0e3bc6e6480"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -136,11 +136,11 @@
                   urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
+                  startingLineNumber = "56"
+                  endingLineNumber = "56">
                </Location>
                <Location
-                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 5e6a44786f790666"
+                  uuid = "52AD2920-BE10-4EC9-A97C-29741F6C685D - 5e6a44786f790681"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -150,26 +150,10 @@
                   urlString = "file:///Users/erbaghdasaryan/Documents/Xcode/FluxAI/FluxAIViewModel/Sources/FluxAIViewModel/Generate/GenerateViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
+                  startingLineNumber = "56"
+                  endingLineNumber = "56">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C826A490-F09F-4F85-BE01-10DF99C35C4B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FluxAIViewModel/Sources/FluxAIViewModel/Services/NetworkService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "createAvatarRequest(userId:gender:photo:preview:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

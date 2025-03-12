@@ -37,6 +37,7 @@ public class GenerateViewModel: IGenerateViewModel {
             appStorageService.saveData(key: .apphudUserID, value: newValue)
         }
     }
+    public var loginResponse: LoginResponseModel?
 
     public init(generateService: IGenerateService,
                 appStorageService: IAppStorageService,

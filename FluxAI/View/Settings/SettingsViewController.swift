@@ -157,7 +157,7 @@ extension SettingsViewController {
         case 1:
             break
         case 2:
-            print("upgrade")
+            self.getProSubscription()
         case 3:
             self.rateTapped()
         case 4:

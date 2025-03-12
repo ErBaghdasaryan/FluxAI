@@ -212,7 +212,7 @@ extension NotificationViewController {
         guard let navigationController = self.navigationController else { return }
 
         NotificationRouter.showPaymentViewController(in: navigationController)
-
+        self.viewModel?.isEnabled = true
     }
 
     @objc func nextButtonTaped() {

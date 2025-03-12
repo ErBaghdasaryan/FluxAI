@@ -17,11 +17,13 @@ public protocol IHomeViewModel {
     var avatarsLoadSuccessSubject: PassthroughSubject<Bool, Never> { get }
     func createByPromptRequest(userId: String?, prompt: String?)
     func fetchGenerationStatus(userId: String?, jobId: String)
+    func login(userId: String, gender: String, source: String)
     func addHistory(_ model: HistoryModel)
     var savedPrompt: String { get set }
     var savedAspectRatio: String { get set }
     var userID: String { get set }
     func getAvatars(userId: String)
+    var loginResponse: LoginResponseModel? { get set }
 }
 
 public class HomeViewModel: IHomeViewModel {
@@ -62,12 +64,26 @@ public class HomeViewModel: IHomeViewModel {
         }
     }
 
+    public var loginResponse: LoginResponseModel?
+
     public init(homeService: IHomeService,
                 appStorageService: IAppStorageService,
                 networkService: INetworkService) {
         self.homeService = homeService
         self.appStorageService = appStorageService
         self.networkService = networkService
+    }
+
+    public func login(userId: String, gender: String, source: String) {
+        Task {
+            do {
+                self.loginResponse = try await networkService.login(userId: userId,
+                                                              gender: gender,
+                                                              source: source)
+            } catch {
+                print("###ERROR###LOGINVIEWMODEL: login")
+            }
+        }
     }
 
     public func createByPromptRequest(userId: String?, prompt: String?) {
