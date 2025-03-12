@@ -157,14 +157,14 @@ extension ChoseAvatarView: UICollectionViewDelegateFlowLayout, UICollectionViewD
             let cell: AvatarCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
             let dataIndex = indexPath.row - 1
 
-            cell.updateSelectionState(isSelected: indexPath == selectedIndex)
-
             self.loadImage(from: self.collectionViewData[dataIndex].preview) { image in
                 if let image = image {
                     cell.setup(with: "",
                                image: image)
                 }
             }
+
+            cell.updateSelectionState(isSelected: indexPath == selectedIndex)
 
             cell.editSubject.sink { [weak self] _ in
                 guard let self = self else { return }
@@ -188,10 +188,18 @@ extension ChoseAvatarView: UICollectionViewDelegateFlowLayout, UICollectionViewD
             self.plusTapped()
             return
         }
-        selectedIndex = indexPath
 
-        collectionView.reloadData()
+        if let previousIndex = selectedIndex,
+           let previousCell = collectionView.cellForItem(at: previousIndex) as? AvatarCollectionViewCell {
+            previousCell.updateSelectionState(isSelected: false)
+        }
+
+        selectedIndex = indexPath
         selectedAvatar = self.collectionViewData[indexPath.row - 1]
+
+        if let newCell = collectionView.cellForItem(at: indexPath) as? AvatarCollectionViewCell {
+            newCell.updateSelectionState(isSelected: true)
+        }
     }
 }
 

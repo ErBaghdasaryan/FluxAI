@@ -13,38 +13,37 @@ final class PaymentButton: UIButton {
                                 textColor: .white,
                                 font: UIFont(name: "SFProText-Bold", size: 24))
     private let tokensCount = UILabel(text: "",
-                                      textColor: UIColor(hex: "#5F6E85")!,
-                                      font: UIFont(name: "SFProText-Regular", size: 12))
+                                      textColor: UIColor.white,
+                                      font: UIFont(name: "SFProText-Regular", size: 14))
     private let saveLabel = UILabel(text: "Save 50%",
                                     textColor: .white,
                                     font: UIFont(name: "SFProText-Regular", size: 12))
     private let perWeek = UILabel(text: "",
                                   textColor: .white,
-                                  font: UIFont(name: "SFProText-Regular", size: 16))
+                                  font: UIFont(name: "SFProText-Semibold", size: 18))
     var isSelectedState: Bool {
-        willSet {
-            if newValue {
-                self.layer.borderWidth = 1
-                self.layer.borderColor = UIColor(hex: "#7500D2")?.cgColor
-                self.backgroundColor = UIColor(hex: "#0F0F0F")
-            } else {
-                self.layer.borderWidth = 1
-                self.layer.borderColor = UIColor.white.cgColor
-                self.backgroundColor = .clear
-            }
+        didSet {
+            self.updateBorder()
         }
     }
     private var isAnnual: PlanPresentationModel
+    private let borderLayer = CAShapeLayer()
 
     public init(isAnnual: PlanPresentationModel, isSelectedState: Bool = false) {
         self.isAnnual = isAnnual
         self.isSelectedState = isSelectedState
         super.init(frame: .zero)
         setupUI(isAnnual: isAnnual)
+        self.setupBorder()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateBorder()
     }
 
     private func setupUI(isAnnual: PlanPresentationModel) {
@@ -57,19 +56,25 @@ final class PaymentButton: UIButton {
         self.perWeek.textAlignment = .right
 
         self.saveLabel.layer.masksToBounds = true
-        self.saveLabel.layer.cornerRadius = 8
+        self.saveLabel.layer.cornerRadius = 12
         self.saveLabel.backgroundColor = UIColor(hex: "#FF4E4E")
+
+        self.saveLabel.layer.zPosition = 1
 
         switch self.isAnnual {
         case .yearly:
             self.title.text = "Year"
-            self.tokensCount.text = "(1200 Tokens)"
-            self.perWeek.text = "6 300 ₽ "
+            self.tokensCount.text = "( 1000 photos, 12 avatars )"
+            self.perWeek.text = "89.99 $"
             self.addSubview(saveLabel)
-        case .weekly:
-            self.title.text = "Week"
-            self.tokensCount.text = "(100 Tokens)"
-            self.perWeek.text = "1 150 ₽ "
+        case .threeMonthly:
+            self.title.text = "3 Mounthly"
+            self.tokensCount.text = "( 300 photos, 3 avatars )"
+            self.perWeek.text = "24.99 $"
+        case .monthly:
+            self.title.text = "1 Mounthly"
+            self.tokensCount.text = "( 100 photos, 1 avatars )"
+            self.perWeek.text = "10.99 $"
             break
         }
 
@@ -82,22 +87,22 @@ final class PaymentButton: UIButton {
     }
 
     private func setupConstraints() {
-        
+
         title.snp.makeConstraints { view in
             view.top.equalToSuperview().offset(12)
             view.leading.equalToSuperview().offset(12)
             view.height.equalTo(26)
         }
-        
+
         perWeek.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(16)
+            view.top.equalToSuperview().offset(24)
             view.trailing.equalToSuperview().inset(12)
             view.height.equalTo(18)
         }
 
         tokensCount.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(20)
-            view.leading.equalTo(title.snp.trailing).offset(15)
+            view.top.equalTo(title.snp.bottom).offset(4)
+            view.leading.equalToSuperview().offset(12)
             view.height.equalTo(14)
         }
 
@@ -117,9 +122,26 @@ final class PaymentButton: UIButton {
     public func setup(with isYearly: String) {
         self.title.text = isYearly
     }
+
+    private func setupBorder() {
+        borderLayer.lineWidth = 1
+        borderLayer.fillColor = UIColor.clear.cgColor
+        layer.addSublayer(borderLayer)
+        updateBorder()
+    }
+
+    private func updateBorder() {
+        borderLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 12).cgPath
+        borderLayer.strokeColor = (isSelectedState ? UIColor(hex: "#7500D2")?.cgColor : UIColor.white.cgColor)
+    }
+
+    func toggleSelection() {
+        isSelectedState.toggle()
+    }
 }
 
 enum PlanPresentationModel {
     case yearly
-    case weekly
+    case threeMonthly
+    case monthly
 }

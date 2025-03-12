@@ -20,6 +20,7 @@ public protocol IHomeViewModel {
     func addHistory(_ model: HistoryModel)
     var savedPrompt: String { get set }
     var savedAspectRatio: String { get set }
+    var userID: String { get set }
     func getAvatars(userId: String)
 }
 
@@ -50,6 +51,14 @@ public class HomeViewModel: IHomeViewModel {
             return appStorageService.getData(key: .savedAspectRatio) ?? ""
         } set {
             appStorageService.saveData(key: .savedAspectRatio, value: newValue)
+        }
+    }
+
+    public var userID: String {
+        get {
+            return appStorageService.getData(key: .apphudUserID) ?? ""
+        } set {
+            appStorageService.saveData(key: .apphudUserID, value: newValue)
         }
     }
 

@@ -22,7 +22,7 @@ final class PrivacyViewController: BaseViewController {
         self.title = "Privacy Policy"
         self.navigationController?.navigationBar.tintColor = .black
         self.webView.backgroundColor = .clear
-        if let url = URL(string: "https://docs.google.com/document/d/1Afc2NRo7DdLbN9rA9apcizw8V15ICEkBm3msGl0KCNw/edit?usp=sharing") {
+        if let url = URL(string: "https://docs.google.com/document/d/11XBfYAuGvIj-tq7o22zMtqbmjH_Wp_ZZKU2ODwqwvDE/edit?usp=sharing") {
             webView.load(URLRequest(url: url))
         }
 

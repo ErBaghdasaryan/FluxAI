@@ -10,6 +10,7 @@ import FluxAIModele
 import Combine
 
 public protocol INetworkService {
+    func login(userId: String, gender: String, source: String) async throws -> LoginResponseModel
     func createByPromptRequest(userId: String?, prompt: String?) async throws -> RequestResponseModel
     func fetchGenerationStatus(userId: String?, jobId: String) -> AnyPublisher<GenerationStatusResponseModel, Error>
     func createAvatarRequest(userId: String, gender: String, photo: [URL]?, preview: URL?) async throws -> CreateAvatarResponseModel
@@ -20,6 +21,26 @@ public protocol INetworkService {
 public final class NetworkService: INetworkService {    
 
     public init() { }
+
+    public func login(userId: String, gender: String, source: String) async throws -> LoginResponseModel {
+        guard let url = URL(string: "https://webwisesolutions.shop/api/v1/user/login") else { throw URLError(.badURL) }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer f113066f-2ad6-43eb-b860-8683fde1042a", forHTTPHeaderField: "Authorization")
+
+        var body: [String: Any] = [:]
+        body["userId"] = userId
+        body["gender"] = gender
+        body["source"] = source
+
+        request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let result = try JSONDecoder().decode(LoginResponseModel.self, from: data)
+        return result
+    }
 
     public func createByPromptRequest(userId: String? = nil, prompt: String? = nil) async throws -> RequestResponseModel {
         guard let url = URL(string: "https://webwisesolutions.shop/api/v1/photo/generate/txt2img") else { throw URLError(.badURL) }

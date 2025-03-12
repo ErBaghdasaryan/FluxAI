@@ -21,19 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         setSceneView()
-//        let viewController: UIViewController?
-//        if appStorageService.hasData(for: .skipOnboarding) {
-//            viewController = ViewControllerFactory.makeOnboardingViewController()
-//            let navigationController = UINavigationController(rootViewController: viewController!)
-//            self.window?.rootViewController = navigationController
-//            self.window?.makeKeyAndVisible()
-//        } else {
-//            appStorageService.saveData(key: .skipOnboarding, value: true)
-//            viewController = ViewControllerFactory.makeOnboardingViewController()
-//            let navigationController = UINavigationController(rootViewController: viewController!)
-//            self.window?.rootViewController = navigationController
-//            self.window?.makeKeyAndVisible()
-//        }
     }
 
     func setSceneView() {

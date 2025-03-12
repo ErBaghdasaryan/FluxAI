@@ -6,15 +6,62 @@
 //
 
 import UIKit
+import ApphudSDK
+import FluxAIViewModel
+import AppTrackingTransparency
+import AdSupport
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let appStorageService = AppStorageService()
+    let networkService = NetworkService()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        Apphud.start(apiKey: "app_7fiytz1WbZTn3kAob2rbNLR72ar5du")
+        Apphud.enableDebugLogs()
+        Apphud.setDeviceIdentifiers(idfa: nil, idfv: UIDevice.current.identifierForVendor?.uuidString)
+        fetchIDFA()
+
+        let appHudUserId = Apphud.userID()
+        self.appStorageService.saveData(key: .apphudUserID, value: appHudUserId)
+
+        let bundle = Bundle.main.bundleIdentifier ?? ""
+
+        if !appStorageService.hasData(for: .skipOnboarding) {
+            self.login(userId: appHudUserId,
+                       gender: "m",
+                       source: bundle)
+        }
+
         return true
+    }
+
+    func fetchIDFA() {
+        if #available(iOS 14.5, *) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                ATTrackingManager.requestTrackingAuthorization { status in
+                    guard status == .authorized else { return }
+                    let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+                    Apphud.setDeviceIdentifiers(idfa: idfa, idfv: UIDevice.current.identifierForVendor?.uuidString)
+                }
+            }
+        }
+    }
+
+    func login(userId: String, gender: String, source: String) {
+        Task {
+            do {
+                let response = try await networkService.login(userId: userId,
+                                                              gender: gender,
+                                                              source: source)
+                print(response)
+                print("###SUCCESS###")
+            } catch {
+                print("###ERROR###")
+            }
+        }
     }
 
     // MARK: UISceneSession Lifecycle

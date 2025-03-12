@@ -15,6 +15,7 @@ public protocol IGenerateViewModel {
     func createAvatarRequest(userId: String, gender: String, photos: [URL]?, preview: URL)
     var photosFiles: [URL] { get }
     var previewFile: URL { get }
+    var userID: String { get set }
 }
 
 public class GenerateViewModel: IGenerateViewModel {
@@ -23,16 +24,27 @@ public class GenerateViewModel: IGenerateViewModel {
     public var photosFiles: [URL]
     public var previewFile: URL
     public let networkService: INetworkService
+    public let appStorageService: IAppStorageService
 
     public var requestResponse: CreateAvatarResponseModel?
     public var createAvatarSuccessSubject = PassthroughSubject<Bool, Never>()
     var cancellables = Set<AnyCancellable>()
 
+    public var userID: String {
+        get {
+            return appStorageService.getData(key: .apphudUserID) ?? ""
+        } set {
+            appStorageService.saveData(key: .apphudUserID, value: newValue)
+        }
+    }
+
     public init(generateService: IGenerateService,
+                appStorageService: IAppStorageService,
                 networkService: INetworkService,
                 navigationModel: AvatarGenerationNavigationModel) {
         self.generateService = generateService
         self.networkService = networkService
+        self.appStorageService = appStorageService
         self.photosFiles = navigationModel.photosFiles
         self.previewFile = navigationModel.previewFile
     }

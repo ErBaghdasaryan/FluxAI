@@ -56,13 +56,14 @@ class HomeViewController: BaseViewController {
     override func setupViewModel() {
         super.setupViewModel()
 
-        let userId = "ios-test-user-12"
+        guard let userID = self.viewModel?.userID else {
+            return
+        }
 
-        self.viewModel?.getAvatars(userId: userId)
+        self.viewModel?.getAvatars(userId: userID)
 
         self.viewModel?.createByPromptSuccessSubject.sink { success in
             if success {
-//                let userId = "ios-test-user-11"
                 guard let jobID = self.viewModel?.requestResponse?.data.jobID else { return }
 
                 DispatchQueue.main.async {
@@ -71,7 +72,7 @@ class HomeViewController: BaseViewController {
                 }
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    self.viewModel?.fetchGenerationStatus(userId: userId, jobId: jobID)
+                    self.viewModel?.fetchGenerationStatus(userId: userID, jobId: jobID)
                 }
             } else {
                 DispatchQueue.main.async {
@@ -193,16 +194,20 @@ extension HomeViewController {
             return
         }
         guard let aspectRatio = self.promptView.getCurrentAspectRatio() else { return }
+
+        
     }
 
     @objc func useByPromptTapped() {
-        let userId = "ios-test-user-12"
+        guard let userID = self.viewModel?.userID else {
+            return
+        }
         guard let prompt = self.promptView.getPromptText() else {
             self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
             return
         }
 
-        viewModel?.createByPromptRequest(userId: userId, prompt: prompt)
+        viewModel?.createByPromptRequest(userId: userID, prompt: prompt)
     }
 
     @objc private func choseTapped() {

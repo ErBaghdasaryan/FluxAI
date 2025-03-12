@@ -8,7 +8,7 @@
 import UIKit
 import FluxAIViewModel
 import SnapKit
-//import ApphudSDK
+import ApphudSDK
 
 class PaymentViewController: BaseViewController {
 
@@ -44,17 +44,18 @@ class PaymentViewController: BaseViewController {
     private var buttonsStack: UIStackView!
     private let cancele = UIButton(type: .system)
 
-    private let weeklyButton = PaymentButton(isAnnual: .weekly)
+    private let threeMonthlyButton = PaymentButton(isAnnual: .threeMonthly)
+    private let monthlyButton = PaymentButton(isAnnual: .monthly)
     private let yearlyButton = PaymentButton(isAnnual: .yearly)
 
-//    private var currentProduct: ApphudProduct?
-//    public let paywallID = "main"
-//    public var productsAppHud: [ApphudProduct] = []
+    private var currentProduct: ApphudProduct?
+    public let paywallID = "main"
+    public var productsAppHud: [ApphudProduct] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         makeButtonsAction()
-//        self.loadPaywalls()
+        self.loadPaywalls()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -128,12 +129,12 @@ class PaymentViewController: BaseViewController {
         self.view.addSubview(header1)
         self.view.addSubview(header2)
         self.view.addSubview(subheader)
-        self.view.addSubview(weeklyButton)
         self.view.addSubview(yearlyButton)
+        self.view.addSubview(threeMonthlyButton)
+        self.view.addSubview(monthlyButton)
         self.view.addSubview(continueButton)
         self.view.addSubview(maybeLater)
         self.view.addSubview(buttonsStack)
-
         setupConstraints()
     }
 
@@ -147,14 +148,14 @@ class PaymentViewController: BaseViewController {
             view.bottom.equalToSuperview()
             view.leading.equalToSuperview()
             view.trailing.equalToSuperview()
-            view.height.equalTo(461)
+            view.height.equalTo(575)
         }
 
         afterBottom.snp.makeConstraints { view in
             view.bottom.equalToSuperview()
             view.leading.equalToSuperview()
             view.trailing.equalToSuperview()
-            view.height.equalTo(461)
+            view.height.equalTo(575)
         }
 
         cancele.snp.makeConstraints { view in
@@ -192,18 +193,25 @@ class PaymentViewController: BaseViewController {
             view.height.equalTo(18)
         }
 
-        weeklyButton.snp.makeConstraints { view in
-            view.top.equalTo(subheader.snp.bottom).offset(12)
+        yearlyButton.snp.makeConstraints { view in
+            view.top.equalTo(subheader.snp.bottom).offset(27)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(50)
+            view.height.equalTo(68)
         }
 
-        yearlyButton.snp.makeConstraints { view in
-            view.top.equalTo(weeklyButton.snp.bottom).offset(16)
+        threeMonthlyButton.snp.makeConstraints { view in
+            view.top.equalTo(yearlyButton.snp.bottom).offset(12)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(50)
+            view.height.equalTo(68)
+        }
+
+        monthlyButton.snp.makeConstraints { view in
+            view.top.equalTo(threeMonthlyButton.snp.bottom).offset(12)
+            view.leading.equalToSuperview().offset(16)
+            view.trailing.equalToSuperview().inset(16)
+            view.height.equalTo(68)
         }
 
         continueButton.snp.makeConstraints { view in
@@ -240,19 +248,27 @@ extension PaymentViewController {
         terms.addTarget(self, action: #selector(termsTapped), for: .touchUpInside)
         cancele.addTarget(self, action: #selector(cancelTaped), for: .touchUpInside)
         yearlyButton.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
-        weeklyButton.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
+        threeMonthlyButton.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
+        monthlyButton.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
     }
 
     @objc func planAction(_ sender: UIButton) {
         switch sender {
         case yearlyButton:
             self.yearlyButton.isSelectedState = true
-            self.weeklyButton.isSelectedState = false
-//            self.currentProduct = self.productsAppHud.first
-        case weeklyButton:
+            self.threeMonthlyButton.isSelectedState = false
+            self.monthlyButton.isSelectedState = false
+            self.currentProduct = self.productsAppHud[2]
+        case threeMonthlyButton:
             self.yearlyButton.isSelectedState = false
-            self.weeklyButton.isSelectedState = true
-//            self.currentProduct = self.productsAppHud[1]
+            self.monthlyButton.isSelectedState = false
+            self.threeMonthlyButton.isSelectedState = true
+            self.currentProduct = self.productsAppHud[1]
+        case monthlyButton:
+            self.yearlyButton.isSelectedState = false
+            self.threeMonthlyButton.isSelectedState = false
+            self.monthlyButton.isSelectedState = true
+            self.currentProduct = self.productsAppHud.first
         default:
             break
         }
@@ -264,7 +280,7 @@ extension PaymentViewController {
 
             if let currentIndex = viewControllers.firstIndex(of: self), currentIndex > 0 {
                 let previousViewController = viewControllers[currentIndex - 1]
-                
+
                 if previousViewController is NotificationViewController {
                     PyamentRouter.showTabBarViewController(in: navigationController)
                 } else {
@@ -277,102 +293,125 @@ extension PaymentViewController {
     }
 
     @objc func privacyTapped() {
-//        guard let navigationController = self.navigationController else { return }
-//        PaymentRouter.showPrivacyViewController(in: navigationController)
+        guard let navigationController = self.navigationController else { return }
+        PyamentRouter.showPrivacyViewController(in: navigationController)
     }
 
     @objc func termsTapped() {
-//        guard let navigationController = self.navigationController else { return }
-//        PaymentRouter.showTermsViewController(in: navigationController)
+        guard let navigationController = self.navigationController else { return }
+        PyamentRouter.showTermsViewController(in: navigationController)
     }
 
     @objc func continueButtonTaped() {
-//        if let navigationController = self.navigationController {
-//            guard let currentProduct = self.currentProduct else { return }
-//
-//            startPurchase(product: currentProduct) { result in
-//                let viewControllers = navigationController.viewControllers
-//
-//                if let currentIndex = viewControllers.firstIndex(of: self), currentIndex > 0 {
-//                    let previousViewController = viewControllers[currentIndex - 1]
-//
-//                    if previousViewController is OnboardingViewController {
-//                        UntilOnboardingRouter.showTabBarViewController(in: navigationController)
-//                    } else {
-//                        UntilOnboardingRouter.popViewController(in: navigationController)
-//                    }
-//                }
-//            }
-//        }
+        if let navigationController = self.navigationController {
+            guard let currentProduct = self.currentProduct else { return }
+
+            startPurchase(product: currentProduct) { result in
+                let viewControllers = navigationController.viewControllers
+
+                if let currentIndex = viewControllers.firstIndex(of: self), currentIndex > 0 {
+                    let previousViewController = viewControllers[currentIndex - 1]
+
+                    if previousViewController is NotificationViewController {
+                        PyamentRouter.showTabBarViewController(in: navigationController)
+                    } else {
+                        navigationController.navigationBar.isHidden = false
+                        navigationController.navigationItem.hidesBackButton = false
+                        navigationController.popViewController(animated: true)
+                    }
+                }
+            }
+        }
     }
 
     @objc func restoreTapped() {
-//        guard let navigationController = self.navigationController else { return }
-//        self.restorePurchase { result in
-//            print("Restore completed!")
-//        }
-//
-//        let viewControllers = navigationController.viewControllers
-//
-//        if let currentIndex = viewControllers.firstIndex(of: self), currentIndex > 0 {
-//            let previousViewController = viewControllers[currentIndex - 1]
-//
-//            if previousViewController is OnboardingViewController {
-//                UntilOnboardingRouter.showTabBarViewController(in: navigationController)
-//            } else {
-//                UntilOnboardingRouter.popViewController(in: navigationController)
-//            }
-//        }
+        guard let navigationController = self.navigationController else { return }
+        self.restorePurchase { result in
+            if result {
+                self.showSuccessAlert(message: "You have successfully restored your purchases.")
+            } else {
+                self.showBadAlert(message: "Your purchase could not be restored. Please try again later.")
+            }
+        }
+
+        let viewControllers = navigationController.viewControllers
+
+        if let currentIndex = viewControllers.firstIndex(of: self), currentIndex > 0 {
+            let previousViewController = viewControllers[currentIndex - 1]
+
+            if previousViewController is NotificationViewController {
+                PyamentRouter.showTabBarViewController(in: navigationController)
+            } else {
+                navigationController.navigationBar.isHidden = false
+                navigationController.navigationItem.hidesBackButton = false
+                navigationController.popViewController(animated: true)
+            }
+        }
     }
 
-//    @MainActor
-//    public func startPurchase(product: ApphudProduct, escaping: @escaping(Bool) -> Void) {
-//        let selectedProduct = product
-//        Apphud.purchase(selectedProduct) { result in
-//            if let error = result.error {
-//                print(error.localizedDescription)
-//                escaping(false)
-//            }
-//
-//            if let subscription = result.subscription, subscription.isActive() {
-//                escaping(true)
-//            } else if let purchase = result.nonRenewingPurchase, purchase.isActive() {
-//                escaping(true)
-//            } else {
-//                if Apphud.hasActiveSubscription() {
-//                    escaping(true)
-//                }
-//            }
-//        }
-//    }
+    @MainActor
+    public func startPurchase(product: ApphudProduct, escaping: @escaping(Bool) -> Void) {
+        let selectedProduct = product
+        Apphud.purchase(selectedProduct) { result in
+            if let error = result.error {
+                print(error.localizedDescription)
+                escaping(false)
+            }
 
-//    @MainActor
-//    public func restorePurchase(escaping: @escaping(Bool) -> Void) {
-//        Apphud.restorePurchases { subscriptions, _, error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//                escaping(false)
-//            }
-//            if subscriptions?.first?.isActive() ?? false {
-//                escaping(true)
-//            }
-//            if Apphud.hasActiveSubscription() {
-//                escaping(true)
-//            }
-//        }
-//    }
+            if let subscription = result.subscription, subscription.isActive() {
+                escaping(true)
+            } else if let purchase = result.nonRenewingPurchase, purchase.isActive() {
+                escaping(true)
+            } else {
+                if Apphud.hasActiveSubscription() {
+                    escaping(true)
+                }
+            }
+        }
+    }
 
-//    @MainActor
-//    public func loadPaywalls() {
-//        Apphud.paywallsDidLoadCallback { paywalls, arg in
-//            if let paywall = paywalls.first(where: { $0.identifier == self.paywallID }) {
-//                Apphud.paywallShown(paywall)
-//
-//                let products = paywall.products
-//                self.productsAppHud = products
-//            }
-//        }
-//    }
+    @MainActor
+    public func restorePurchase(escaping: @escaping(Bool) -> Void) {
+        Apphud.restorePurchases { subscriptions, _, error in
+            if let error = error {
+                print(error.localizedDescription)
+                escaping(false)
+            }
+            if subscriptions?.first?.isActive() ?? false {
+                escaping(true)
+            }
+            if Apphud.hasActiveSubscription() {
+                escaping(true)
+            }
+        }
+    }
+
+    @MainActor
+    public func loadPaywalls() {
+        Apphud.paywallsDidLoadCallback { paywalls, error in
+            if let error = error {
+                print("Ошибка загрузки paywalls: \(error.localizedDescription)")
+            } else if let paywall = paywalls.first(where: { $0.identifier == self.paywallID }) {
+                Apphud.paywallShown(paywall)
+                self.productsAppHud = paywall.products
+                print("Продукты успешно загружены: \(self.productsAppHud)")
+            } else {
+                print("Paywall с идентификатором \(self.paywallID) не найден.")
+            }
+        }
+    }
+
+    func showSuccessAlert(message: String) {
+        let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showBadAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension PaymentViewController: IViewModelableController {

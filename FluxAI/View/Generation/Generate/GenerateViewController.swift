@@ -108,12 +108,14 @@ extension GenerateViewController {
     }
 
     private func sendRequests() {
-        let userId = "ios-test-user-12"
+        guard let userID = self.viewModel?.userID else {
+            return 
+        }
         let gender = "m"
         guard let photos = self.viewModel?.photosFiles else { return }
         guard let preview = self.viewModel?.previewFile else { return }
 
-        self.viewModel?.createAvatarRequest(userId: userId,
+        self.viewModel?.createAvatarRequest(userId: userID,
                                             gender: gender,
                                             photos: photos,
                                             preview: preview)

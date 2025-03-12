@@ -8,6 +8,7 @@
 import UIKit
 import FluxAIViewModel
 import SnapKit
+import ApphudSDK
 
 class NotificationViewController: BaseViewController {
 
@@ -163,6 +164,48 @@ extension NotificationViewController {
     private func makeButtonsAction() {
         nextButton.addTarget(self, action: #selector(nextButtonTaped), for: .touchUpInside)
         maybeLater.addTarget(self, action: #selector(maybeLaterTaped), for: .touchUpInside)
+        terms.addTarget(self, action: #selector(termsTapped), for: .touchUpInside)
+        privacy.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
+        restore.addTarget(self, action: #selector(restoreTapped), for: .touchUpInside)
+    }
+
+    @objc func restoreTapped() {
+        guard let navigationController = self.navigationController else { return }
+        self.restorePurchase { result in
+            if result {
+                self.showSuccessAlert(message: "You have successfully restored your purchases.")
+            } else {
+                self.showBadAlert(message: "Your purchase could not be restored. Please try again later.")
+            }
+        }
+    }
+
+    @MainActor
+    public func restorePurchase(escaping: @escaping(Bool) -> Void) {
+        Apphud.restorePurchases { subscriptions, _, error in
+            if let error = error {
+                print(error.localizedDescription)
+                escaping(false)
+            }
+            if subscriptions?.first?.isActive() ?? false {
+                escaping(true)
+            }
+            if Apphud.hasActiveSubscription() {
+                escaping(true)
+            }
+        }
+    }
+
+    @objc func termsTapped() {
+        guard let navigationController = self.navigationController else { return }
+
+        NotificationRouter.showTermsViewController(in: navigationController)
+    }
+
+    @objc func privacyTapped() {
+        guard let navigationController = self.navigationController else { return }
+
+        NotificationRouter.showPrivacyViewController(in: navigationController)
     }
 
     @objc func maybeLaterTaped() {
@@ -177,6 +220,18 @@ extension NotificationViewController {
 
         NotificationRouter.showPaymentViewController(in: navigationController)
         self.viewModel?.isEnabled = true
+    }
+
+    func showSuccessAlert(message: String) {
+        let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showBadAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 

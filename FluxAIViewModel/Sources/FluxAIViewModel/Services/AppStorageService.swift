@@ -45,4 +45,5 @@ public enum StorageKeys: String {
     case skipPayment = "skipPayment"
     case savedPrompt = "savedPrompt"
     case savedAspectRatio = "savedAspectRatio"
+    case apphudUserID = "apphudUserID"
 }

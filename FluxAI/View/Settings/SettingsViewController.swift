@@ -9,7 +9,7 @@ import UIKit
 import FluxAIViewModel
 import SnapKit
 import StoreKit
-//import ApphudSDK
+import ApphudSDK
 
 class SettingsViewController: BaseViewController {
 
@@ -163,17 +163,7 @@ extension SettingsViewController {
         case 4:
             self.showClearCacheAlert()
         case 5:
-//            self.restorePurchase { result in
-//                switch result {
-//                case false:
-//                    self.showAlert(title: "Error!", message: "An error occurred while restoring the purchase.")
-//                case true:
-//                    self.showAlert(title: "Success!", message: "The purchase was successfully restored.")
-//                default:
-//                    break
-//                }
-//            }
-            print("Restore")
+            self.restoreTapped()
         case 6:
             self.contactUsTapped()
         case 7:
@@ -226,20 +216,31 @@ extension SettingsViewController {
         present(alertController, animated: true, completion: nil)
     }
 
+    private func restoreTapped() {
+        guard let navigationController = self.navigationController else { return }
+        self.restorePurchase { result in
+            if result {
+                self.showSuccessAlert(message: "You have successfully restored your purchases.")
+            } else {
+                self.showBadAlert(message: "Your purchase could not be restored. Please try again later.")
+            }
+        }
+    }
+
     @MainActor
     func restorePurchase(escaping: @escaping(Bool) -> Void) {
-//        Apphud.restorePurchases { subscriptions, _, error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//                escaping(false)
-//            }
-//            if subscriptions?.first?.isActive() ?? false {
-//                escaping(true)
-//            }
-//            if Apphud.hasActiveSubscription() {
-//                escaping(true)
-//            }
-//        }
+        Apphud.restorePurchases { subscriptions, _, error in
+            if let error = error {
+                print(error.localizedDescription)
+                escaping(false)
+            }
+            if subscriptions?.first?.isActive() ?? false {
+                escaping(true)
+            }
+            if Apphud.hasActiveSubscription() {
+                escaping(true)
+            }
+        }
     }
 
     private func rateTapped() {
@@ -254,7 +255,7 @@ extension SettingsViewController {
             )
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "Go to App Store", style: .default) { _ in
-                if let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6742786924") {
+                if let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6743154212") {
                     UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
                 }
             })
@@ -263,7 +264,7 @@ extension SettingsViewController {
     }
 
     private func shareTapped() {
-        let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6742786924")!
+        let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6743154212")!
 
         let activityViewController = UIActivityViewController(activityItems: [appStoreURL], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
@@ -305,6 +306,18 @@ extension SettingsViewController {
         guard let navigationController = self.navigationController else { return }
 
         SettingsRouter.showPrivacyViewController(in: navigationController)
+    }
+
+    func showSuccessAlert(message: String) {
+        let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showBadAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 

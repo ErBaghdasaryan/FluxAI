@@ -189,7 +189,7 @@ extension OnboardingViewController {
             )
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "Go to App Store", style: .default) { _ in
-                if let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6742786924") {
+                if let appStoreURL = URL(string: "https://apps.apple.com/us/app/flux-ai-app/id6743154212") {
                     UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
                 }
             })
