@@ -49,7 +49,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CC4AC6362D81A68500C47A81 /* Flux-AI.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Flux-AI.storekit"; sourceTree = "<group>"; };
 		CC60276B2D704E2700DED9B7 /* FluxAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluxAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC6027812D704E2800DED9B7 /* FluxAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FluxAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60278B2D704E2800DED9B7 /* FluxAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FluxAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,7 +124,6 @@
 		CC6027622D704E2700DED9B7 = {
 			isa = PBXGroup;
 			children = (
-				CC4AC6362D81A68500C47A81 /* Flux-AI.storekit */,
 				CC6027A02D704E8000DED9B7 /* FluxAIViewModel */,
 				CC60279F2D704E6A00DED9B7 /* FluxAIModele */,
 				CC60276D2D704E2700DED9B7 /* FluxAI */,
