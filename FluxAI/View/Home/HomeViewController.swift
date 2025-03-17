@@ -24,6 +24,17 @@ class HomeViewController: BaseViewController {
         makeButtonsAction()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let userID = self.viewModel?.userID else {
+            return
+        }
+        let bundle = Bundle.main.bundleIdentifier ?? ""
+        self.viewModel?.login(userId: userID,
+                              gender: "m",
+                              source: bundle)
+    }
+
     override func setupUI() {
         super.setupUI()
 
@@ -59,11 +70,6 @@ class HomeViewController: BaseViewController {
         guard let userID = self.viewModel?.userID else {
             return
         }
-
-        let bundle = Bundle.main.bundleIdentifier ?? ""
-        self.viewModel?.login(userId: userID,
-                              gender: "m",
-                              source: bundle)
 
         self.viewModel?.getAvatars(userId: userID)
 
