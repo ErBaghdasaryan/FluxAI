@@ -9,6 +9,7 @@ import UIKit
 import FluxAIViewModel
 import SnapKit
 import StoreKit
+import ApphudSDK
 
 class AddAvatarViewController: BaseViewController {
 
@@ -173,7 +174,11 @@ extension AddAvatarViewController {
     @objc func getProSubscription() {
         guard let navigationController = self.navigationController else { return }
 
-        AddAvatarRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            AddAvatarRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            AddAvatarRouter.showPaymentViewController(in: navigationController)
+        }
     }
 }
 

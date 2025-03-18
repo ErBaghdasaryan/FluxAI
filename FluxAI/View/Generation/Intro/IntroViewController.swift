@@ -9,6 +9,7 @@ import UIKit
 import FluxAIViewModel
 import SnapKit
 import StoreKit
+import ApphudSDK
 
 class IntroViewController: BaseViewController {
 
@@ -186,7 +187,11 @@ extension IntroViewController {
     @objc func getProSubscription() {
         guard let navigationController = self.navigationController else { return }
 
-        IntroRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            IntroRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            IntroRouter.showPaymentViewController(in: navigationController)
+        }
     }
 }
 

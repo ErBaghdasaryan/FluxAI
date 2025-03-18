@@ -10,6 +10,7 @@ import FluxAIViewModel
 import SnapKit
 import StoreKit
 import Photos
+import ApphudSDK
 
 class EditPhotoViewController: BaseViewController {
 
@@ -136,7 +137,11 @@ extension EditPhotoViewController {
     @objc func getProSubscription() {
         guard let navigationController = self.navigationController else { return }
 
-        EditPhotoRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            EditPhotoRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            EditPhotoRouter.showPaymentViewController(in: navigationController)
+        }
     }
 }
 

@@ -9,6 +9,7 @@ import UIKit
 import FluxAIViewModel
 import SnapKit
 import StoreKit
+import ApphudSDK
 
 class GenerateViewController: BaseViewController {
 
@@ -159,15 +160,15 @@ extension GenerateViewController {
     @objc func getProSubscription() {
         guard let navigationController = self.navigationController else { return }
 
-        GenerateRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            GenerateRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            GenerateRouter.showPaymentViewController(in: navigationController)
+        }
     }
 
     private func startGenerationProcess() {
         self.startProgressTimer()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + totalGenerationTime) {
-            self.onGenerationCompleted()
-        }
     }
 
     private func startProgressTimer() {
@@ -183,6 +184,7 @@ extension GenerateViewController {
 
             if self.elapsedTime >= self.totalGenerationTime {
                 timer.invalidate()
+                self.onGenerationCompleted()
             }
         }
     }
@@ -192,7 +194,12 @@ extension GenerateViewController {
             self.showSuccessAlert(message: "Your avatar has been successfully created, you can see the avatar")
 
             guard let navigationController = self.navigationController else { return }
-            GenerateRouter.showTabBarViewController(in: navigationController)
+            for controller in navigationController.viewControllers {
+                if controller is UITabBarController {
+                    navigationController.popToViewController(controller, animated: true)
+                    return
+                }
+            }
         }
     }
 }

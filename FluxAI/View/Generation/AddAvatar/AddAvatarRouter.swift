@@ -19,6 +19,14 @@ final class AddAvatarRouter: BaseRouter {
         navigationController.pushViewController(viewController, animated: true)
     }
 
+    static func showUpdatePaymentViewController(in navigationController: UINavigationController) {
+        let viewController = ViewControllerFactory.makeUpdatePaymentViewController()
+        viewController.navigationItem.hidesBackButton = true
+        navigationController.navigationBar.isHidden = true
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
     static func showGenerateViewController(in navigationController: UINavigationController, navigationModel: AvatarGenerationNavigationModel) {
         let viewController = ViewControllerFactory.makeGenerateViewController(navigationModel: navigationModel)
         viewController.navigationItem.hidesBackButton = true

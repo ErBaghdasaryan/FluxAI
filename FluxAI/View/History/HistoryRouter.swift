@@ -19,6 +19,14 @@ final class HistoryRouter: BaseRouter {
         navigationController.pushViewController(viewController, animated: true)
     }
 
+    static func showUpdatePaymentViewController(in navigationController: UINavigationController) {
+        let viewController = ViewControllerFactory.makeUpdatePaymentViewController()
+        viewController.navigationItem.hidesBackButton = true
+        navigationController.navigationBar.isHidden = true
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
     static func showEditPhotoViewController(in navigationController: UINavigationController, navigationModel: EditPhotoNavigationModel) {
         let viewController = ViewControllerFactory.makeEditPhotoViewController(navigationModel: navigationModel)
         viewController.navigationItem.hidesBackButton = true

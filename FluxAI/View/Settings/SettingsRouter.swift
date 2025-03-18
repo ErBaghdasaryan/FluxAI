@@ -18,6 +18,14 @@ final class SettingsRouter: BaseRouter {
         navigationController.pushViewController(viewController, animated: true)
     }
 
+    static func showUpdatePaymentViewController(in navigationController: UINavigationController) {
+        let viewController = ViewControllerFactory.makeUpdatePaymentViewController()
+        viewController.navigationItem.hidesBackButton = true
+        navigationController.navigationBar.isHidden = true
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
     static func showPrivacyViewController(in navigationController: UINavigationController) {
         let viewController = ViewControllerFactory.makePrivacyViewController()
         viewController.navigationItem.hidesBackButton = false

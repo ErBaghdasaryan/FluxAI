@@ -1,8 +1,8 @@
 //
-//  PaymentViewController.swift
+//  UpdatePaymentViewController.swift
 //  FluxAI
 //
-//  Created by Er Baghdasaryan on 27.02.25.
+//  Created by Er Baghdasaryan on 18.03.25.
 //
 
 import UIKit
@@ -10,11 +10,11 @@ import FluxAIViewModel
 import SnapKit
 import ApphudSDK
 
-class PaymentViewController: BaseViewController {
+class UpdatePaymentViewController: BaseViewController {
 
     var viewModel: ViewModel?
 
-    private let background = UIImageView(image: UIImage(named: "paymentBG"))
+    private let background = UIImageView(image: UIImage(named: "updatePaymentBG"))
     private let bottomView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .systemThickMaterialDark)
         let view = UIVisualEffectView(effect: blurEffect)
@@ -23,33 +23,25 @@ class PaymentViewController: BaseViewController {
         return view
     }()
     private let afterBottom = UIView()
-    private let header = UILabel(text: "Ultra Realistic HD",
+    private let header = UILabel(text: "Full Glam AI power",
                                  textColor: .white,
-                                 font: UIFont(name: "SFProText-Bold", size: 24))
-    private let header1 = UILabel(text: "Unlock AI Photo",
-                                 textColor: .white,
-                                 font: UIFont(name: "SFProText-Bold", size: 24))
-    private let header2 = UILabel(text: "Access to all Features",
-                                 textColor: .white,
-                                 font: UIFont(name: "SFProText-Bold", size: 24))
-    private let subheader = UILabel(text: "Select your plan.",
-                                    textColor: UIColor(hex: "#8D929B")!,
-                                    font: UIFont(name: "SFProText-Regular", size: 16))
+                                 font: UIFont(name: "SFProText-Bold", size: 32))
 
-    private let continueButton = UIButton(type: .system)
-    private let maybeLater = UILabel()
+    private let grabTheDeal = UIButton(type: .system)
     private let terms = UIButton(type: .system)
     private let privacy = UIButton(type: .system)
     private let restore = UIButton(type: .system)
     private var buttonsStack: UIStackView!
     private let cancele = UIButton(type: .system)
 
-    private let threeMonthlyButton = PaymentButton(isAnnual: .threeMonthly)
-    private let monthlyButton = PaymentButton(isAnnual: .monthly)
-    private let yearlyButton = PaymentButton(isAnnual: .yearly)
+    private let tokensFirst = UpdatePaymentButton(header: "5000 Tokens", subheader: "250.00 $")
+    private let tokensSecond = UpdatePaymentButton(header: "1000 Tokens", subheader: "66.00 $")
+    private let tokensThird = UpdatePaymentButton(header: "300 Tokens", subheader: "23.00 $")
+    private let tokensFourth = UpdatePaymentButton(header: "100 Tokens", subheader: "9.00 $")
+    private let avatarSecond = UpdatePaymentButton(header: "Avatar", subheader: "5.89 $")
 
     private var currentProduct: ApphudProduct?
-    public let paywallID = "main"
+    public let paywallID = "consumable"
     public var productsAppHud: [ApphudProduct] = []
 
     override func viewDidLoad() {
@@ -69,12 +61,12 @@ class PaymentViewController: BaseViewController {
     override func setupUI() {
         super.setupUI()
 
-        self.continueButton.setTitle("Continue", for: .normal)
-        self.continueButton.setTitleColor(.white, for: .normal)
-        self.continueButton.layer.cornerRadius = 8
-        self.continueButton.layer.masksToBounds = true
-        self.continueButton.titleLabel?.font = UIFont(name: "SFProText-Regular", size: 15)
-        self.continueButton.backgroundColor = UIColor(hex: "#7500D2")
+        self.grabTheDeal.setTitle("Grab the deal", for: .normal)
+        self.grabTheDeal.setTitleColor(.white, for: .normal)
+        self.grabTheDeal.layer.cornerRadius = 8
+        self.grabTheDeal.layer.masksToBounds = true
+        self.grabTheDeal.titleLabel?.font = UIFont(name: "SFProText-Regular", size: 15)
+        self.grabTheDeal.backgroundColor = UIColor(hex: "#7500D2")
 
         self.bottomView.layer.masksToBounds = true
         self.bottomView.layer.cornerRadius = 16
@@ -112,12 +104,6 @@ class PaymentViewController: BaseViewController {
         let text = NSMutableAttributedString(string: " Cancel anytime")
         text.insert(attachmentString, at: 0)
 
-        maybeLater.attributedText = text
-        maybeLater.font = UIFont(name: "SFProText-Regular", size: 12)
-        maybeLater.textColor = UIColor(hex: "#8D929B")
-        maybeLater.textAlignment = .center
-        maybeLater.isUserInteractionEnabled = true
-
         self.cancele.setImage(UIImage(named: "cancel"), for: .normal)
 
         self.cancele.isHidden = true
@@ -127,14 +113,12 @@ class PaymentViewController: BaseViewController {
         self.view.addSubview(afterBottom)
         self.view.addSubview(cancele)
         self.view.addSubview(header)
-        self.view.addSubview(header1)
-        self.view.addSubview(header2)
-        self.view.addSubview(subheader)
-        self.view.addSubview(yearlyButton)
-        self.view.addSubview(threeMonthlyButton)
-        self.view.addSubview(monthlyButton)
-        self.view.addSubview(continueButton)
-        self.view.addSubview(maybeLater)
+        self.view.addSubview(tokensFirst)
+        self.view.addSubview(tokensSecond)
+        self.view.addSubview(tokensThird)
+        self.view.addSubview(tokensFourth)
+        self.view.addSubview(avatarSecond)
+        self.view.addSubview(grabTheDeal)
         self.view.addSubview(buttonsStack)
         setupConstraints()
     }
@@ -149,14 +133,14 @@ class PaymentViewController: BaseViewController {
             view.bottom.equalToSuperview()
             view.leading.equalToSuperview()
             view.trailing.equalToSuperview()
-            view.height.equalTo(575)
+            view.height.equalTo(647)
         }
 
         afterBottom.snp.makeConstraints { view in
             view.bottom.equalToSuperview()
             view.leading.equalToSuperview()
             view.trailing.equalToSuperview()
-            view.height.equalTo(575)
+            view.height.equalTo(647)
         }
 
         cancele.snp.makeConstraints { view in
@@ -168,65 +152,51 @@ class PaymentViewController: BaseViewController {
 
         header.snp.makeConstraints { view in
             view.top.equalTo(bottomView.snp.top).offset(16)
-            view.leading.equalToSuperview().offset(67)
-            view.trailing.equalToSuperview().inset(67)
-            view.height.equalTo(26)
-        }
-
-        header1.snp.makeConstraints { view in
-            view.top.equalTo(header.snp.bottom).offset(8)
-            view.leading.equalToSuperview().offset(67)
-            view.trailing.equalToSuperview().inset(67)
-            view.height.equalTo(26)
-        }
-
-        header2.snp.makeConstraints { view in
-            view.top.equalTo(header1.snp.bottom).offset(8)
-            view.leading.equalToSuperview().offset(67)
-            view.trailing.equalToSuperview().inset(67)
-            view.height.equalTo(26)
-        }
-
-        subheader.snp.makeConstraints { view in
-            view.top.equalTo(header2.snp.bottom).offset(8)
-            view.leading.equalToSuperview().offset(67)
-            view.trailing.equalToSuperview().inset(67)
-            view.height.equalTo(18)
-        }
-
-        yearlyButton.snp.makeConstraints { view in
-            view.top.equalTo(subheader.snp.bottom).offset(27)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(68)
+            view.height.equalTo(34)
         }
 
-        threeMonthlyButton.snp.makeConstraints { view in
-            view.top.equalTo(yearlyButton.snp.bottom).offset(12)
+        tokensFirst.snp.makeConstraints { view in
+            view.top.equalTo(header.snp.bottom).offset(34)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(68)
+            view.height.equalTo(67)
         }
 
-        monthlyButton.snp.makeConstraints { view in
-            view.top.equalTo(threeMonthlyButton.snp.bottom).offset(12)
+        tokensSecond.snp.makeConstraints { view in
+            view.top.equalTo(tokensFirst.snp.bottom).offset(22)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(68)
+            view.height.equalTo(67)
         }
 
-        continueButton.snp.makeConstraints { view in
-            view.bottom.equalToSuperview().inset(112)
+        tokensThird.snp.makeConstraints { view in
+            view.top.equalTo(tokensSecond.snp.bottom).offset(22)
+            view.leading.equalToSuperview().offset(16)
+            view.trailing.equalToSuperview().inset(16)
+            view.height.equalTo(67)
+        }
+
+        tokensFourth.snp.makeConstraints { view in
+            view.top.equalTo(tokensThird.snp.bottom).offset(22)
+            view.leading.equalToSuperview().offset(16)
+            view.trailing.equalToSuperview().inset(16)
+            view.height.equalTo(67)
+        }
+
+        avatarSecond.snp.makeConstraints { view in
+            view.top.equalTo(tokensFourth.snp.bottom).offset(22)
+            view.leading.equalToSuperview().offset(16)
+            view.trailing.equalToSuperview().inset(16)
+            view.height.equalTo(67)
+        }
+
+        grabTheDeal.snp.makeConstraints { view in
+            view.bottom.equalToSuperview().inset(68)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
             view.height.equalTo(40)
-        }
-
-        maybeLater.snp.makeConstraints { view in
-            view.top.equalTo(continueButton.snp.bottom).offset(12)
-            view.leading.equalToSuperview().offset(16)
-            view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(32)
         }
 
         buttonsStack.snp.makeConstraints { view in
@@ -240,35 +210,57 @@ class PaymentViewController: BaseViewController {
 }
 
 //MARK: Make buttons actions
-extension PaymentViewController {
+extension UpdatePaymentViewController {
     
     private func makeButtonsAction() {
-        continueButton.addTarget(self, action: #selector(continueButtonTaped), for: .touchUpInside)
+        grabTheDeal.addTarget(self, action: #selector(grabTheDealTaped), for: .touchUpInside)
         restore.addTarget(self, action: #selector(restoreTapped), for: .touchUpInside)
         privacy.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
         terms.addTarget(self, action: #selector(termsTapped), for: .touchUpInside)
         cancele.addTarget(self, action: #selector(cancelTaped), for: .touchUpInside)
-        yearlyButton.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
-        threeMonthlyButton.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
-        monthlyButton.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
+        tokensFirst.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
+        tokensSecond.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
+        tokensThird.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
+        tokensFourth.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
+        avatarSecond.addTarget(self, action: #selector(planAction(_:)), for: .touchUpInside)
     }
 
     @objc func planAction(_ sender: UIButton) {
         switch sender {
-        case yearlyButton:
-            self.yearlyButton.isSelectedState = true
-            self.threeMonthlyButton.isSelectedState = false
-            self.monthlyButton.isSelectedState = false
-            self.currentProduct = self.productsAppHud[2]
-        case threeMonthlyButton:
-            self.yearlyButton.isSelectedState = false
-            self.monthlyButton.isSelectedState = false
-            self.threeMonthlyButton.isSelectedState = true
+        case tokensFirst:
+            self.tokensFirst.isSelectedState = true
+            self.tokensSecond.isSelectedState = false
+            self.tokensThird.isSelectedState = false
+            self.tokensFourth.isSelectedState = false
+            self.avatarSecond.isSelectedState = false
             self.currentProduct = self.productsAppHud[1]
-        case monthlyButton:
-            self.yearlyButton.isSelectedState = false
-            self.threeMonthlyButton.isSelectedState = false
-            self.monthlyButton.isSelectedState = true
+        case tokensSecond:
+            self.tokensFirst.isSelectedState = false
+            self.tokensSecond.isSelectedState = true
+            self.tokensThird.isSelectedState = false
+            self.tokensFourth.isSelectedState = false
+            self.avatarSecond.isSelectedState = false
+            self.currentProduct = self.productsAppHud[3]
+        case tokensThird:
+            self.tokensFirst.isSelectedState = false
+            self.tokensSecond.isSelectedState = false
+            self.tokensThird.isSelectedState = true
+            self.tokensFourth.isSelectedState = false
+            self.avatarSecond.isSelectedState = false
+            self.currentProduct = self.productsAppHud[2]
+        case tokensFourth:
+            self.tokensFirst.isSelectedState = false
+            self.tokensSecond.isSelectedState = false
+            self.tokensThird.isSelectedState = false
+            self.tokensFourth.isSelectedState = true
+            self.avatarSecond.isSelectedState = false
+            self.currentProduct = self.productsAppHud[4]
+        case avatarSecond:
+            self.tokensFirst.isSelectedState = false
+            self.tokensSecond.isSelectedState = false
+            self.tokensThird.isSelectedState = false
+            self.tokensFourth.isSelectedState = false
+            self.avatarSecond.isSelectedState = true
             self.currentProduct = self.productsAppHud.first
         default:
             break
@@ -283,9 +275,9 @@ extension PaymentViewController {
                 let previousViewController = viewControllers[currentIndex - 1]
 
                 if previousViewController is NotificationViewController {
-                    PyamentRouter.showTabBarViewController(in: navigationController)
+                    UpdatePaymentRouter.showTabBarViewController(in: navigationController)
                 } else if previousViewController is IntroViewController {
-                    PyamentRouter.showTabBarFromIntroViewController(in: navigationController)
+                    UpdatePaymentRouter.showTabBarFromIntroViewController(in: navigationController)
                 } else {
                     navigationController.navigationBar.isHidden = false
                     navigationController.navigationItem.hidesBackButton = false
@@ -305,22 +297,24 @@ extension PaymentViewController {
         PyamentRouter.showTermsViewController(in: navigationController)
     }
 
-    @objc func continueButtonTaped() {
+    @objc func grabTheDealTaped() {
         if let navigationController = self.navigationController {
             guard let currentProduct = self.currentProduct else { return }
 
+            let viewControllers = navigationController.viewControllers
             startPurchase(product: currentProduct) { result in
-                let viewControllers = navigationController.viewControllers
 
                 if let currentIndex = viewControllers.firstIndex(of: self), currentIndex > 0 {
                     let previousViewController = viewControllers[currentIndex - 1]
 
                     if previousViewController is NotificationViewController {
-                        PyamentRouter.showTabBarViewController(in: navigationController)
+                        UpdatePaymentRouter.showTabBarViewController(in: navigationController)
                     } else {
-                        navigationController.navigationBar.isHidden = false
-                        navigationController.navigationItem.hidesBackButton = false
-                        navigationController.popViewController(animated: true)
+                        DispatchQueue.main.async {
+                            navigationController.navigationBar.isHidden = false
+                            navigationController.navigationItem.hidesBackButton = false
+                            navigationController.popViewController(animated: true)
+                        }
                     }
                 }
             }
@@ -343,7 +337,7 @@ extension PaymentViewController {
             let previousViewController = viewControllers[currentIndex - 1]
 
             if previousViewController is NotificationViewController {
-                PyamentRouter.showTabBarViewController(in: navigationController)
+                UpdatePaymentRouter.showTabBarViewController(in: navigationController)
             } else {
                 navigationController.navigationBar.isHidden = false
                 navigationController.navigationItem.hidesBackButton = false
@@ -417,7 +411,7 @@ extension PaymentViewController {
     }
 }
 
-extension PaymentViewController: IViewModelableController {
+extension UpdatePaymentViewController: IViewModelableController {
     typealias ViewModel = IPaymentViewModel
 }
 
@@ -425,20 +419,20 @@ extension PaymentViewController: IViewModelableController {
 //MARK: Preview
 import SwiftUI
 
-struct PaymentViewControllerProvider: PreviewProvider {
+struct UpdatePaymentViewControllerProvider: PreviewProvider {
 
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
 
     struct ContainerView: UIViewControllerRepresentable {
-        let paymentViewController = PaymentViewController()
+        let updatePaymentViewController = UpdatePaymentViewController()
 
-        func makeUIViewController(context: UIViewControllerRepresentableContext<PaymentViewControllerProvider.ContainerView>) -> PaymentViewController {
-            return paymentViewController
+        func makeUIViewController(context: UIViewControllerRepresentableContext<UpdatePaymentViewControllerProvider.ContainerView>) -> UpdatePaymentViewController {
+            return updatePaymentViewController
         }
 
-        func updateUIViewController(_ uiViewController: PaymentViewControllerProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<PaymentViewControllerProvider.ContainerView>) {
+        func updateUIViewController(_ uiViewController: UpdatePaymentViewControllerProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<UpdatePaymentViewControllerProvider.ContainerView>) {
         }
     }
 }

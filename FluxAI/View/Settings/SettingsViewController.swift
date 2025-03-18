@@ -89,7 +89,11 @@ extension SettingsViewController {
     @objc func getProSubscription() {
         guard let navigationController = self.navigationController else { return }
 
-        SettingsRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            SettingsRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            SettingsRouter.showPaymentViewController(in: navigationController)
+        }
     }
 
     private func configureCorners(for cell: UICollectionViewCell, indexPath: IndexPath) {

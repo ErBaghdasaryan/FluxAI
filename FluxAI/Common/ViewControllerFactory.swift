@@ -37,6 +37,14 @@ final class ViewControllerFactory {
         return viewController
     }
 
+    //MARK: UpdatePayment
+    static func makeUpdatePaymentViewController() -> UpdatePaymentViewController {
+        let assembler = Assembler(commonAssemblies + [UpdatePaymentAssembly()])
+        let viewController = UpdatePaymentViewController()
+        viewController.viewModel = assembler.resolver.resolve(IPaymentViewModel.self)
+        return viewController
+    }
+
     //MARK: - TabBar
     static func makeTabBarViewController() -> TabBarViewController {
         let viewController = TabBarViewController()

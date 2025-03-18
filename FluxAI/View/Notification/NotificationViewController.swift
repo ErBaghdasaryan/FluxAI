@@ -211,14 +211,22 @@ extension NotificationViewController {
     @objc func maybeLaterTaped() {
         guard let navigationController = self.navigationController else { return }
 
-        NotificationRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            NotificationRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            NotificationRouter.showPaymentViewController(in: navigationController)
+        }
         self.viewModel?.isEnabled = true
     }
 
     @objc func nextButtonTaped() {
         guard let navigationController = self.navigationController else { return }
 
-        NotificationRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            NotificationRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            NotificationRouter.showPaymentViewController(in: navigationController)
+        }
         self.viewModel?.isEnabled = true
     }
 

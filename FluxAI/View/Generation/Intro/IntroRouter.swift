@@ -18,6 +18,14 @@ final class IntroRouter: BaseRouter {
         navigationController.pushViewController(viewController, animated: true)
     }
 
+    static func showUpdatePaymentViewController(in navigationController: UINavigationController) {
+        let viewController = ViewControllerFactory.makeUpdatePaymentViewController()
+        viewController.navigationItem.hidesBackButton = true
+        navigationController.navigationBar.isHidden = true
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
     static func showAddAvatarViewController(in navigationController: UINavigationController) {
         let viewController = ViewControllerFactory.makeAddAvatarViewController()
         viewController.navigationItem.hidesBackButton = true

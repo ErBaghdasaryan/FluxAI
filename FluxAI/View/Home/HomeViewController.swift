@@ -9,6 +9,7 @@ import UIKit
 import FluxAIViewModel
 import SnapKit
 import SDWebImage
+import ApphudSDK
 
 class HomeViewController: BaseViewController {
 
@@ -228,6 +229,7 @@ extension HomeViewController {
         guard let userID = self.viewModel?.userID else {
             return
         }
+
         guard let prompt = self.promptView.getPromptText() else {
             self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
             return
@@ -260,7 +262,11 @@ extension HomeViewController {
     @objc func getProSubscription() {
         guard let navigationController = self.navigationController else { return }
 
-        HomeRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            HomeRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            HomeRouter.showPaymentViewController(in: navigationController)
+        }
     }
 
     private func fetchImageUsingSDWebImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {

@@ -8,6 +8,7 @@
 import UIKit
 import FluxAIViewModel
 import SnapKit
+import ApphudSDK
 
 class HistoryViewController: BaseViewController {
 
@@ -107,7 +108,11 @@ extension HistoryViewController {
     @objc func getProSubscription() {
         guard let navigationController = self.navigationController else { return }
 
-        HistoryRouter.showPaymentViewController(in: navigationController)
+        if Apphud.hasActiveSubscription() {
+            HistoryRouter.showUpdatePaymentViewController(in: navigationController)
+        } else {
+            HistoryRouter.showPaymentViewController(in: navigationController)
+        }
     }
 }
 
