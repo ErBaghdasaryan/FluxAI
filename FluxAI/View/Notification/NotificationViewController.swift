@@ -9,6 +9,7 @@ import UIKit
 import FluxAIViewModel
 import SnapKit
 import ApphudSDK
+import OneSignalFramework
 
 class NotificationViewController: BaseViewController {
 
@@ -222,12 +223,15 @@ extension NotificationViewController {
     @objc func nextButtonTaped() {
         guard let navigationController = self.navigationController else { return }
 
-        if Apphud.hasActiveSubscription() {
-            NotificationRouter.showUpdatePaymentViewController(in: navigationController)
-        } else {
-            NotificationRouter.showPaymentViewController(in: navigationController)
-        }
-        self.viewModel?.isEnabled = true
+        OneSignal.Notifications.requestPermission({ accepted in
+            DispatchQueue.main.async {
+                if accepted {
+                    self.showNTFSuccessAlert(message: "You have successfully enabled your notifications.")
+                } else {
+                    self.showNTFBadAlert(message: "You haven't enabled your notifications!")
+                }
+            }
+        }, fallbackToSettings: true)
     }
 
     func showSuccessAlert(message: String) {
@@ -239,6 +243,34 @@ extension NotificationViewController {
     func showBadAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showNTFSuccessAlert(message: String) {
+        guard let navigationController = self.navigationController else { return }
+        let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            if Apphud.hasActiveSubscription() {
+                NotificationRouter.showUpdatePaymentViewController(in: navigationController)
+            } else {
+                NotificationRouter.showPaymentViewController(in: navigationController)
+            }
+            self.viewModel?.isEnabled = true
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showNTFBadAlert(message: String) {
+        guard let navigationController = self.navigationController else { return }
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            if Apphud.hasActiveSubscription() {
+                NotificationRouter.showUpdatePaymentViewController(in: navigationController)
+            } else {
+                NotificationRouter.showPaymentViewController(in: navigationController)
+            }
+            self.viewModel?.isEnabled = true
+        }))
         present(alert, animated: true, completion: nil)
     }
 }

@@ -10,6 +10,7 @@ import ApphudSDK
 import FluxAIViewModel
 import AppTrackingTransparency
 import AdSupport
+import OneSignalFramework
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Apphud.enableDebugLogs()
         Apphud.setDeviceIdentifiers(idfa: nil, idfv: UIDevice.current.identifierForVendor?.uuidString)
         fetchIDFA()
+
+        OneSignal.initialize("72bb6547-04ef-4825-baee-ae888b668968", withLaunchOptions: launchOptions)
 
         let appHudUserId = Apphud.userID()
         self.appStorageService.saveData(key: .apphudUserID, value: appHudUserId)

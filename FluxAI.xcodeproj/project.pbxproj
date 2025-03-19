@@ -10,6 +10,8 @@
 		CC4AC52C2D78983D00C47A81 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CC4AC52B2D78983D00C47A81 /* SDWebImage */; };
 		CC4AC52E2D78983D00C47A81 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CC4AC52D2D78983D00C47A81 /* SDWebImageMapKit */; };
 		CC4AC55F2D80671E00C47A81 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = CC4AC55E2D80671E00C47A81 /* ApphudSDK */; };
+		CC4FA8292D8AB53C00F46BF9 /* OneSignalFramework in Frameworks */ = {isa = PBXBuildFile; productRef = CC4FA8282D8AB53C00F46BF9 /* OneSignalFramework */; };
+		CC4FA82B2D8AB53C00F46BF9 /* OneSignalInAppMessages in Frameworks */ = {isa = PBXBuildFile; productRef = CC4FA82A2D8AB53C00F46BF9 /* OneSignalInAppMessages */; };
 		CC6027A32D704E9100DED9B7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027A22D704E9100DED9B7 /* SnapKit */; };
 		CC6027A82D704E9F00DED9B7 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027A72D704E9F00DED9B7 /* Swinject */; };
 		CC6027AD2D704EAB00DED9B7 /* SwinjectAutoregistration in Frameworks */ = {isa = PBXBuildFile; productRef = CC6027AC2D704EAB00DED9B7 /* SwinjectAutoregistration */; };
@@ -93,9 +95,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC4AC55F2D80671E00C47A81 /* ApphudSDK in Frameworks */,
+				CC4FA82B2D8AB53C00F46BF9 /* OneSignalInAppMessages in Frameworks */,
 				CC6027A32D704E9100DED9B7 /* SnapKit in Frameworks */,
 				CC6027AD2D704EAB00DED9B7 /* SwinjectAutoregistration in Frameworks */,
 				CC6027B72D704EFF00DED9B7 /* FluxAIViewModel in Frameworks */,
+				CC4FA8292D8AB53C00F46BF9 /* OneSignalFramework in Frameworks */,
 				CC4AC52C2D78983D00C47A81 /* SDWebImage in Frameworks */,
 				CC6027B22D704EB800DED9B7 /* SQLite in Frameworks */,
 				CC6027B52D704EFF00DED9B7 /* FluxAIModele in Frameworks */,
@@ -181,6 +185,8 @@
 				CC4AC52B2D78983D00C47A81 /* SDWebImage */,
 				CC4AC52D2D78983D00C47A81 /* SDWebImageMapKit */,
 				CC4AC55E2D80671E00C47A81 /* ApphudSDK */,
+				CC4FA8282D8AB53C00F46BF9 /* OneSignalFramework */,
+				CC4FA82A2D8AB53C00F46BF9 /* OneSignalInAppMessages */,
 			);
 			productName = FluxAI;
 			productReference = CC60276B2D704E2700DED9B7 /* FluxAI.app */;
@@ -271,6 +277,7 @@
 				CC6027B02D704EB800DED9B7 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 				CC4AC52A2D78983C00C47A81 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				CC4AC55D2D80671E00C47A81 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
+				CC4FA8272D8AB53C00F46BF9 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CC60276C2D704E2700DED9B7 /* Products */;
@@ -667,6 +674,14 @@
 				minimumVersion = 3.6.0;
 			};
 		};
+		CC4FA8272D8AB53C00F46BF9 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OneSignal/OneSignal-XCFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.10;
+			};
+		};
 		CC6027A12D704E9100DED9B7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -716,6 +731,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CC4AC55D2D80671E00C47A81 /* XCRemoteSwiftPackageReference "ApphudSDK" */;
 			productName = ApphudSDK;
+		};
+		CC4FA8282D8AB53C00F46BF9 /* OneSignalFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC4FA8272D8AB53C00F46BF9 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */;
+			productName = OneSignalFramework;
+		};
+		CC4FA82A2D8AB53C00F46BF9 /* OneSignalInAppMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC4FA8272D8AB53C00F46BF9 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */;
+			productName = OneSignalInAppMessages;
 		};
 		CC6027A22D704E9100DED9B7 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
