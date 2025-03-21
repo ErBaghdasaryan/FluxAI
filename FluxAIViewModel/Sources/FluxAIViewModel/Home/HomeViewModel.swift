@@ -22,8 +22,10 @@ public protocol IHomeViewModel {
     var savedPrompt: String { get set }
     var savedAspectRatio: String { get set }
     var userID: String { get set }
+    var completedTexts: [String] { get set }
     func getAvatars(userId: String)
     var loginResponse: LoginResponseModel? { get set }
+    func loadCompletedPromptTexts()
 }
 
 public class HomeViewModel: IHomeViewModel {
@@ -39,6 +41,8 @@ public class HomeViewModel: IHomeViewModel {
     public var fetchGenerationSuccessSubject = PassthroughSubject<Bool, Never>()
     public var avatarsLoadSuccessSubject = PassthroughSubject<Bool, Never>()
     var cancellables = Set<AnyCancellable>()
+
+    public var completedTexts: [String] = []
 
     public var savedPrompt: String {
         get {
@@ -136,5 +140,9 @@ public class HomeViewModel: IHomeViewModel {
         } catch {
             print(error)
         }
+    }
+
+    public func loadCompletedPromptTexts() {
+        self.completedTexts = self.homeService.getCompletedPromptTexts()
     }
 }

@@ -19,6 +19,7 @@ class HomeViewController: BaseViewController {
     private let useByPrompt = UIButton(type: .system)
     private let chooseAvatar = ChoseAvatarView()
     private let activityIndicator = UIActivityIndicatorView()
+    private let surpriseMe = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +57,22 @@ class HomeViewController: BaseViewController {
         tapGesture.cancelsTouchesInView = false
         self.chooseAvatar.addGestureRecognizer(tapGesture)
 
+        surpriseMe.setTitle("Surprice me", for: .normal)
+        surpriseMe.setTitleColor(UIColor.black, for: .normal)
+        surpriseMe.titleLabel?.font = UIFont(name: "SFProText-Regular", size: 15)
+        surpriseMe.setImage(UIImage(named: "surpriseMe"), for: .normal)
+        surpriseMe.tintColor = UIColor.black
+        surpriseMe.imageEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 8)
+        surpriseMe.titleEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 16)
+        surpriseMe.backgroundColor = .white
+        surpriseMe.layer.masksToBounds = true
+        surpriseMe.layer.cornerRadius = 8
+
         self.view.addSubview(promptView)
         self.view.addSubview(useByPrompt)
         self.view.addSubview(chooseAvatar)
         self.view.addSubview(activityIndicator)
+        self.view.addSubview(surpriseMe)
         setupConstraints()
         setupNavigationItems()
         setupViewTapHandling()
@@ -71,6 +84,8 @@ class HomeViewController: BaseViewController {
         guard let userID = self.viewModel?.userID else {
             return
         }
+
+        self.viewModel?.loadCompletedPromptTexts()
 
         self.viewModel?.getAvatars(userId: userID)
 
@@ -159,6 +174,13 @@ class HomeViewController: BaseViewController {
             view.width.equalTo(30)
             view.height.equalTo(30)
         }
+
+        surpriseMe.snp.makeConstraints { view in
+            view.bottom.equalTo(promptView.text.snp.bottom).inset(12)
+            view.leading.equalTo(promptView.text.snp.leading).offset(216)
+            view.trailing.equalTo(promptView.text.snp.trailing).inset(12)
+            view.height.equalTo(32)
+        }
     }
 
 }
@@ -168,8 +190,25 @@ extension HomeViewController {
     
     private func makeButtonsAction() {
         useByPrompt.addTarget(self, action: #selector(useByPromptTapped), for: .touchUpInside)
+        surpriseMe.addTarget(self, action: #selector(generateFromAlreadyCompletedText), for: .touchUpInside)
 
         setupSubscriptions()
+    }
+
+    @objc func generateFromAlreadyCompletedText() {
+        guard let texts = self.viewModel?.completedTexts else { return }
+        guard let userID = self.viewModel?.userID else {
+            return
+        }
+        guard let response = self.viewModel?.loginResponse else { return }
+
+        let promptText = texts.randomElement() ?? ""
+
+        if response.data.stat.availableGenerations == 0 {
+            self.getProSubscription()
+        } else {
+            viewModel?.createByPromptRequest(userId: userID, prompt: promptText)
+        }
     }
 
     private func setupSubscriptions() {

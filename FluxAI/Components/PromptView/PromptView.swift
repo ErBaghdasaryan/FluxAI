@@ -12,7 +12,7 @@ class PromptView: UIView {
     private let header = UILabel(text: "What do you want to create?",
                                  textColor: UIColor.white,
                                  font: UIFont(name: "SFProText-Bold", size: 18))
-    private let text = CustomTextView(placeholder: "Write what you want...")
+    public let text = CustomTextView(placeholder: "Write what you want...")
     private let aspectRatio = UILabel(text: "Aspect ratio",
                                       textColor: UIColor.white,
                                       font: UIFont(name: "SFProText-Bold", size: 18))
