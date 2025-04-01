@@ -154,7 +154,6 @@ extension SettingsViewController {
     }
 
     private func tappedCell(from index: Int) {
-        guard let navigationController = self.navigationController else { return }
         switch index {
         case 0:
             self.shareTapped()
@@ -221,7 +220,6 @@ extension SettingsViewController {
     }
 
     private func restoreTapped() {
-        guard let navigationController = self.navigationController else { return }
         self.restorePurchase { result in
             if result {
                 self.showSuccessAlert(message: "You have successfully restored your purchases.")
@@ -336,7 +334,6 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = self.viewModel?.settingsItems[section].count ?? 0
         return self.viewModel?.settingsItems[section].count ?? 0
     }
 

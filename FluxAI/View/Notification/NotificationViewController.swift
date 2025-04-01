@@ -171,7 +171,6 @@ extension NotificationViewController {
     }
 
     @objc func restoreTapped() {
-        guard let navigationController = self.navigationController else { return }
         self.restorePurchase { result in
             if result {
                 self.showSuccessAlert(message: "You have successfully restored your purchases.")
@@ -221,8 +220,6 @@ extension NotificationViewController {
     }
 
     @objc func nextButtonTaped() {
-        guard let navigationController = self.navigationController else { return }
-
         OneSignal.Notifications.requestPermission({ accepted in
             DispatchQueue.main.async {
                 if accepted {
