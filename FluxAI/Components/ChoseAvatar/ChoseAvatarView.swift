@@ -11,18 +11,15 @@ import FluxAIModele
 
 class ChoseAvatarView: UIView {
 
-    private let header = UILabel(text: "Chose avatar",
-                                 textColor: UIColor(hex: "#8D929B")!,
-                                 font: UIFont(name: "SFProText-Bold", size: 18))
     var collectionView: UICollectionView!
     private var selectedIndex: IndexPath?
     private var selectedAvatar: Avatar?
     private var collectionViewData: [Avatar] = []
-    private let create = UIButton(type: .system)
     let editTappedSubject = PassthroughSubject<UIImage, Never>()
     let plusTappedSubject = PassthroughSubject<Void, Never>()
-    let createTappedSubject = PassthroughSubject<Void, Never>()
     var cancellables = Set<AnyCancellable>()
+
+    private var state: Bool = false
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -43,9 +40,9 @@ class ChoseAvatarView: UIView {
 
     private func setupUI() {
 
-        self.backgroundColor = UIColor.clear
-
-        self.header.textAlignment = .left
+        self.backgroundColor = UIColor(hex: "#1D1B1B")
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 12
 
         self.isUserInteractionEnabled = true
 
@@ -67,67 +64,23 @@ class ChoseAvatarView: UIView {
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        self.create.backgroundColor = UIColor(hex: "#7500D2")
-        self.create.layer.masksToBounds = true
-        self.create.layer.cornerRadius = 20
-        self.create.setTitle("Create by Model & Prompt", for: .normal)
-        self.create.setTitleColor(.white, for: .normal)
-        self.create.titleLabel?.font = UIFont(name: "SFProText-Semibold", size: 15)
-
         collectionView.reloadData()
 
-        self.addSubview(header)
         self.addSubview(collectionView)
         setupConstraints()
     }
 
     private func setupConstraints() {
-        header.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(12)
-            view.leading.equalToSuperview().offset(12)
-            view.trailing.equalToSuperview().inset(12)
-            view.height.equalTo(20)
-        }
 
         collectionView.snp.makeConstraints { view in
-            view.top.equalTo(header.snp.bottom).offset(8)
+            view.top.equalToSuperview().offset(12)
             view.leading.equalToSuperview().offset(12)
             view.trailing.equalToSuperview()
             view.height.equalTo(95)
         }
 
         self.snp.makeConstraints { view in
-            view.height.equalTo(147)
-        }
-    }
-
-    func openButton() {
-        self.layer.masksToBounds = true
-        self.layer.cornerRadius = 16
-        self.layer.borderColor = UIColor(hex: "#7500D2")?.cgColor
-        self.layer.borderWidth = 1
-
-        self.addSubview(create)
-
-        create.snp.makeConstraints { view in
-            view.top.equalTo(collectionView.snp.bottom).offset(12)
-            view.leading.equalToSuperview().offset(12)
-            view.trailing.equalToSuperview().inset(12)
-            view.height.equalTo(40)
-        }
-
-        self.snp.updateConstraints { view in
-            view.height.equalTo(200)
-        }
-    }
-
-    func closeButton() {
-        self.layer.borderColor = UIColor.clear.cgColor
-
-        self.create.removeFromSuperview()
-
-        self.snp.updateConstraints { view in
-            view.height.equalTo(147)
+            view.height.equalTo(119)
         }
     }
 
@@ -140,6 +93,10 @@ class ChoseAvatarView: UIView {
         guard let selectedAvatar = self.selectedAvatar else { return nil }
 
         return selectedAvatar
+    }
+
+    func getCurrentState() -> Bool {
+        return self.state
     }
 }
 
@@ -200,16 +157,14 @@ extension ChoseAvatarView: UICollectionViewDelegateFlowLayout, UICollectionViewD
         if let newCell = collectionView.cellForItem(at: indexPath) as? AvatarCollectionViewCell {
             newCell.updateSelectionState(isSelected: true)
         }
+
+        self.state = true
     }
 }
 
 extension ChoseAvatarView {
     private func makeButtonActions() {
-        self.create.addTarget(self, action: #selector(createTapped), for: .touchUpInside)
-    }
 
-    @objc func createTapped() {
-        createTappedSubject.send()
     }
 
     private func plusTapped() {

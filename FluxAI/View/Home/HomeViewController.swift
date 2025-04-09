@@ -16,7 +16,7 @@ class HomeViewController: BaseViewController {
     var viewModel: ViewModel?
 
     private let promptView = PromptView()
-    private let useByPrompt = UIButton(type: .system)
+    private let generate = UIButton(type: .system)
     private let chooseAvatar = ChoseAvatarView()
     private let activityIndicator = UIActivityIndicatorView()
     private let surpriseMe = UIButton(type: .system)
@@ -42,35 +42,22 @@ class HomeViewController: BaseViewController {
 
         self.view.backgroundColor = .black
 
-        self.useByPrompt.backgroundColor = UIColor(hex: "#7500D2")
-        self.useByPrompt.layer.masksToBounds = true
-        self.useByPrompt.layer.cornerRadius = 20
-        self.useByPrompt.setTitle("Use by Prompt", for: .normal)
-        self.useByPrompt.setTitleColor(.white, for: .normal)
-        self.useByPrompt.titleLabel?.font = UIFont(name: "SFProText-Semibold", size: 15)
+        self.generate.backgroundColor = UIColor(hex: "#7500D2")
+        self.generate.layer.masksToBounds = true
+        self.generate.layer.cornerRadius = 20
+        self.generate.setTitle("Generate", for: .normal)
+        self.generate.setTitleColor(.white, for: .normal)
+        self.generate.titleLabel?.font = UIFont(name: "SFProText-Semibold", size: 15)
 
         self.activityIndicator.color = UIColor(hex: "#7500D2")
         self.activityIndicator.style = .large
         self.activityIndicator.hidesWhenStopped = true
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseTapped))
-        tapGesture.cancelsTouchesInView = false
-        self.chooseAvatar.addGestureRecognizer(tapGesture)
-
-        surpriseMe.setTitle("Surprice me", for: .normal)
-        surpriseMe.setTitleColor(UIColor.black, for: .normal)
-        surpriseMe.titleLabel?.font = UIFont(name: "SFProText-Regular", size: 15)
         surpriseMe.setImage(UIImage(named: "surpriseMe"), for: .normal)
-        surpriseMe.tintColor = UIColor.black
-        surpriseMe.imageEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 8)
-        surpriseMe.titleEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 16)
-        surpriseMe.backgroundColor = .white
-        surpriseMe.layer.masksToBounds = true
-        surpriseMe.layer.cornerRadius = 8
 
-        self.view.addSubview(promptView)
-        self.view.addSubview(useByPrompt)
         self.view.addSubview(chooseAvatar)
+        self.view.addSubview(promptView)
+        self.view.addSubview(generate)
         self.view.addSubview(activityIndicator)
         self.view.addSubview(surpriseMe)
         setupConstraints()
@@ -148,24 +135,24 @@ class HomeViewController: BaseViewController {
 
     func setupConstraints() {
 
-        promptView.snp.makeConstraints { view in
-            view.top.equalToSuperview().offset(108)
+        chooseAvatar.snp.makeConstraints { view in
+            view.top.equalToSuperview().offset(124)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
-            view.height.equalTo(296)
         }
 
-        useByPrompt.snp.makeConstraints { view in
+        promptView.snp.makeConstraints { view in
+            view.top.equalTo(chooseAvatar.snp.bottom).offset(16)
+            view.leading.equalToSuperview().offset(16)
+            view.trailing.equalToSuperview().inset(16)
+            view.height.equalTo(144)
+        }
+
+        generate.snp.makeConstraints { view in
             view.top.equalTo(promptView.snp.bottom).offset(16)
             view.leading.equalToSuperview().offset(16)
             view.trailing.equalToSuperview().inset(16)
             view.height.equalTo(40)
-        }
-
-        chooseAvatar.snp.makeConstraints { view in
-            view.top.equalTo(useByPrompt.snp.bottom).offset(28)
-            view.leading.equalToSuperview().offset(16)
-            view.trailing.equalToSuperview().inset(16)
         }
 
         activityIndicator.snp.makeConstraints { view in
@@ -177,9 +164,9 @@ class HomeViewController: BaseViewController {
 
         surpriseMe.snp.makeConstraints { view in
             view.bottom.equalTo(promptView.text.snp.bottom).inset(12)
-            view.leading.equalTo(promptView.text.snp.leading).offset(216)
             view.trailing.equalTo(promptView.text.snp.trailing).inset(12)
             view.height.equalTo(32)
+            view.width.equalTo(32)
         }
     }
 
@@ -189,7 +176,7 @@ class HomeViewController: BaseViewController {
 extension HomeViewController {
     
     private func makeButtonsAction() {
-        useByPrompt.addTarget(self, action: #selector(useByPromptTapped), for: .touchUpInside)
+        generate.addTarget(self, action: #selector(generateTapped), for: .touchUpInside)
         surpriseMe.addTarget(self, action: #selector(generateFromAlreadyCompletedText), for: .touchUpInside)
 
         setupSubscriptions()
@@ -212,10 +199,6 @@ extension HomeViewController {
     }
 
     private func setupSubscriptions() {
-        chooseAvatar.createTappedSubject.sink { [weak self] in
-            self?.createByModelAvatar()
-        }.store(in: &cancellables)
-
         chooseAvatar.plusTappedSubject.sink { [weak self] in
             self?.handleCreateAvatar()
         }.store(in: &cancellables)
@@ -246,25 +229,7 @@ extension HomeViewController {
         }
     }
 
-    private func createByModelAvatar() {
-        guard let navigationController = self.navigationController else { return }
-        guard let prompt = self.promptView.getPromptText() else {
-            self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
-            return
-        }
-        guard let aspectRatio = self.promptView.getCurrentAspectRatio() else { return }
-        guard let avatar = self.chooseAvatar.returnSelectedAvatar() else {
-            self.showBadAlert(message: "First, select or add an avatar.")
-            return
-        }
-        guard let response = self.viewModel?.loginResponse else { return }
-
-        if response.data.stat.availableGenerations == 0 {
-            self.getProSubscription()
-        }
-    }
-
-    @objc func useByPromptTapped() {
+    @objc func generateTapped() {
         guard let userID = self.viewModel?.userID else {
             return
         }
@@ -273,19 +238,24 @@ extension HomeViewController {
             self.showBadAlert(message: "Write the text that you want to generate, without which it is impossible to continue.")
             return
         }
+
         guard let response = self.viewModel?.loginResponse else { return }
+
+        guard let avatar = self.chooseAvatar.returnSelectedAvatar() else {
+            self.showBadAlert(message: "First, select or add an avatar.")
+            return
+        }
+        let aspectRatio = "1:1"
 
         if response.data.stat.availableGenerations == 0 {
             self.getProSubscription()
         } else {
-            viewModel?.createByPromptRequest(userId: userID, prompt: prompt)
+            if self.chooseAvatar.getCurrentState() {
+                
+            } else {
+                viewModel?.createByPromptRequest(userId: userID, prompt: prompt)
+            }
         }
-    }
-
-    @objc private func choseTapped() {
-        self.chooseAvatar.openButton()
-        self.useByPrompt.backgroundColor = UIColor(hex: "#7500D2")?.withAlphaComponent(0.5)
-        self.useByPrompt.isUserInteractionEnabled = false
     }
 
     private func setupNavigationItems() {
@@ -294,8 +264,14 @@ extension HomeViewController {
         button.frame = CGRect(x: 0, y: 0, width: 113, height: 32)
         button.addTarget(self, action: #selector(getProSubscription), for: .touchUpInside)
 
+        let leftLabel = UILabel(text: "Main",
+                                textColor: .white,
+                                font: UIFont(name: "SFProText-Bold", size: 24))
+
         let proButton = UIBarButtonItem(customView: button)
+        let headerLabel = UIBarButtonItem(customView: leftLabel)
         navigationItem.rightBarButtonItem = proButton
+        navigationItem.leftBarButtonItem = headerLabel
     }
 
     @objc func getProSubscription() {
@@ -375,9 +351,6 @@ extension HomeViewController: UITextFieldDelegate, UITextViewDelegate {
 
     @objc private func hideKeyboard() {
         self.view.endEditing(true)
-        self.chooseAvatar.closeButton()
-        self.useByPrompt.isUserInteractionEnabled = true
-        self.useByPrompt.backgroundColor = UIColor(hex: "#7500D2")
     }
 
     private func setupViewTapHandling() {

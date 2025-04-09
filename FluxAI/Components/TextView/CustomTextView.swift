@@ -26,7 +26,7 @@ public class CustomTextView: UITextView, UITextViewDelegate {
         self.backgroundColor = UIColor.clear
 
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderColor = UIColor(hex: "#A09E9E")?.cgColor
 
         placeholderLabel.text = placeholderText
         placeholderLabel.font = UIFont(name: "SFProText-Regular", size: 16)

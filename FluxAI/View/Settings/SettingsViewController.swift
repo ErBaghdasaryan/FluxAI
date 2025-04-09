@@ -82,8 +82,15 @@ extension SettingsViewController {
         button.frame = CGRect(x: 0, y: 0, width: 113, height: 32)
         button.addTarget(self, action: #selector(getProSubscription), for: .touchUpInside)
 
+        let leftLabel = UILabel(text: "Settings",
+                                textColor: .white,
+                                font: UIFont(name: "SFProText-Bold", size: 24))
+
         let proButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = proButton
+
+        let headerLabel = UIBarButtonItem(customView: leftLabel)
+        navigationItem.leftBarButtonItem = headerLabel
     }
 
     @objc func getProSubscription() {

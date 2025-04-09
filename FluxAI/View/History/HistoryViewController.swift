@@ -58,7 +58,6 @@ class HistoryViewController: BaseViewController {
         self.view.addSubview(collectionView)
         setupConstraints()
         setupNavigationItems()
-        setupTitleAttributes()
     }
 
     override func setupViewModel() {
@@ -91,18 +90,13 @@ extension HistoryViewController {
 
         let proButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = proButton
-    }
 
-    func setupTitleAttributes() {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "SFProText-Bold", size: 24)!,
-            .foregroundColor: UIColor.white
-        ]
+        let leftLabel = UILabel(text: "History",
+                                textColor: .white,
+                                font: UIFont(name: "SFProText-Bold", size: 24))
 
-        let titleString = NSAttributedString(string: "History", attributes: attributes)
-        navigationController?.navigationBar.topItem?.title = nil
-        navigationController?.navigationBar.topItem?.titleView = UILabel()
-        (navigationController?.navigationBar.topItem?.titleView as? UILabel)?.attributedText = titleString
+        let headerLabel = UIBarButtonItem(customView: leftLabel)
+        navigationItem.leftBarButtonItem = headerLabel
     }
 
     @objc func getProSubscription() {
